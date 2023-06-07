@@ -1,0 +1,17 @@
+::-webkit-scrollbar-thumb {
+    position: relative;
+    border-radius: 10px;
+    background-color: #bdbdbd;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    z-index: 999;
+}
+::-webkit-scrollbar {
+    position: relative;
+    width: 6px;
+    height: 6px;
+    z-index: 999;
+}
+*::after,*::before,* {
+    box-sizing: border-box;
+    list-style: none;
+}

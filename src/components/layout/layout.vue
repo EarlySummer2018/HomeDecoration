@@ -1,85 +1,108 @@
 <template>
-  <a-layout style="min-height: 100vh">
-    <a-layout-sider v-model:collapsed="collapsed" collapsible>
+  <a-layout id="layout">
+    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible :width="headerLeft"
+      class="layout-sider-bar">
       <div class="logo" />
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
         <a-menu-item key="1">
-          <pie-chart-outlined />
-          <span>Option 1</span>
+          <user-outlined />
+          <span>nav 1</span>
         </a-menu-item>
         <a-menu-item key="2">
-          <desktop-outlined />
-          <span>Option 2</span>
+          <video-camera-outlined />
+          <span>nav 2</span>
         </a-menu-item>
-        <a-sub-menu key="sub1">
-          <template #title>
-            <span>
-              <user-outlined />
-              <span>User</span>
-            </span>
-          </template>
-          <a-menu-item key="3">Tom</a-menu-item>
-          <a-menu-item key="4">Bill</a-menu-item>
-          <a-menu-item key="5">Alex</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <template #title>
-            <span>
-              <team-outlined />
-              <span>Team</span>
-            </span>
-          </template>
-          <a-menu-item key="6">Team 1</a-menu-item>
-          <a-menu-item key="8">Team 2</a-menu-item>
-        </a-sub-menu>
-        <a-menu-item key="9">
-          <file-outlined />
-          <span>File</span>
+        <a-menu-item key="3">
+          <upload-outlined />
+          <span>nav 3</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0" />
-      <a-layout-content style="margin: 0 16px">
-        <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>User</a-breadcrumb-item>
-          <a-breadcrumb-item>Bill</a-breadcrumb-item>
-        </a-breadcrumb>
-        <div
-          :style="{ padding: '24px', background: '#fff', minHeight: '360px' }"
-        >
-          Bill is a cat.
-        </div>
+      <a-layout-header class="layout-header">
+        <menu-unfold-outlined v-if="collapsed" class="trigger" @click="() => (collapsed = !collapsed)" />
+        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+      </a-layout-header>
+      <a-layout-content class="layout-content">
+        <HomeTemplateIndex />
       </a-layout-content>
-      <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
-      </a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
 <script lang="ts" setup>
 import {
-  PieChartOutlined,
-  DesktopOutlined,
   UserOutlined,
-  TeamOutlined,
-  FileOutlined,
+  VideoCameraOutlined,
+  UploadOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons-vue";
-import { ref } from "vue";
+import HomeTemplateIndex from '@/components/homeTemplate/index.vue'
+import { ref, watch } from "vue";
 const collapsed = ref<boolean>(false);
 const selectedKeys = ref<string[]>(["1"]);
+const headerWidth = ref<string>('calc(100% - 160px)')
+const headerLeft = ref<string>('160px')
+watch(
+  collapsed,
+  (nVal): void => {
+    if (!nVal) {
+      headerWidth.value = 'calc(100% - 160px)'
+      headerLeft.value = '160px'
+    } else {
+      headerWidth.value = 'calc(100% - 80px)'
+      headerLeft.value = '80px'
+    }
+  })
 </script>
 <style lang="scss">
-#components-layout-demo-side .logo {
-  height: 32px;
-  margin: 16px;
-  background: rgba(255, 255, 255, 0.3);
-}
+#layout {
+  min-width: 1400px;
 
-.site-layout .site-layout-background {
-  background: #fff;
-}
-[data-theme="dark"] .site-layout .site-layout-background {
-  background: #141414;
-}
-</style>
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
+  .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 16px;
+  }
+
+  .layout-sider-bar {
+    overflow: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .layout-content {
+    padding: 80px 20px 20px 20px;
+    min-height: calc(100vh - 64px);
+    margin-left: v-bind('headerLeft');
+    overflow: auto;
+    z-index: 1;
+    right: 0px;
+  }
+
+  .layout-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: v-bind('headerWidth');
+    background: #fff;
+    padding: 0;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    z-index: 8;
+  }
+}</style>
