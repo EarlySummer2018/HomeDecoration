@@ -90,6 +90,7 @@ watch(
     padding: 80px 20px 20px 20px;
     min-height: calc(100vh - 64px);
     margin-left: v-bind('headerLeft');
+    transition: margin 0.2s linear;
     overflow: auto;
     z-index: 1;
     right: 0px;
@@ -103,6 +104,7 @@ watch(
     background: #fff;
     padding: 0;
     box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    transition: width 0.2s linear;
     z-index: 8;
   }
 }</style>

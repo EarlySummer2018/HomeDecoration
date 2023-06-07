@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import ComponentModule from './componentModule/index.vue'
+import ComponentModule from './module/component/index.vue'
+import Swiper from './module/swiper/index.vue'
 const phoneContentHeaderBgColor = ref<string>('#fff')
 </script>
 
@@ -12,6 +13,7 @@ const phoneContentHeaderBgColor = ref<string>('#fff')
         </section>
         <section class="col phone-content">
             <div class="phone-content-header"></div>
+            <Swiper></Swiper>
         </section>
         <section class="col editor">3</section>
     </div>
@@ -50,8 +52,9 @@ const phoneContentHeaderBgColor = ref<string>('#fff')
         width: 375px;
         max-height: 648px;
         box-shadow: 0 0 28px 0 #ccc;
-        border: 1px solid #ddd;
+        // border: 1px solid #ddd;
         margin-top: 25px;
+        padding-top: 66px;
         background-color: #fff;
         &-header {
             position: absolute;
