@@ -10,9 +10,9 @@ const useDrag = (list: any) => {
         timer.value && clearTimeout(timer.value)
         timer.value = setTimeout(() => {
             if(dragIndex.value !== index){
-                const source = list.value[dragIndex.value]
-                list.value.splice(dragIndex.value, 1)
-                list.value.splice(index, 0 , source)
+                const source = list[dragIndex.value]
+                list.splice(dragIndex.value, 1)
+                list.splice(index, 0 , source)
                 // 排序变化后目标对象的索引变成源对象的索引
                 dragIndex.value = index;
               }

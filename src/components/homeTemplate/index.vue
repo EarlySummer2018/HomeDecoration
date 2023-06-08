@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import ComponentModule from './module/component/index.vue'
-import Swiper from './module/swiper/index.vue'
-const phoneContentHeaderBgColor = ref<string>('#fff')
+import {ComponentModule, ContentModule} from './module'
 </script>
 
 <template>
@@ -11,11 +8,10 @@ const phoneContentHeaderBgColor = ref<string>('#fff')
         <section class="col component">
             <component-module></component-module>
         </section>
-        <section class="col phone-content">
-            <div class="phone-content-header"></div>
-            <Swiper></Swiper>
+        <content-module></content-module>
+        <section class="col editor">
+            <div class="editor-title">页面设置</div>
         </section>
-        <section class="col editor">3</section>
     </div>
     <footer class="home-template-index-footer-box">
         <a-button style="position: relative;z-index: 2;" type="primary">保存</a-button>
@@ -45,27 +41,13 @@ const phoneContentHeaderBgColor = ref<string>('#fff')
     .editor {
         width: 374px;
         min-width: 374px;
-    }
-    .phone-content {
-        position: relative;
-        min-width: 375px;
-        width: 375px;
-        max-height: 648px;
-        box-shadow: 0 0 28px 0 #ccc;
-        // border: 1px solid #ddd;
-        margin-top: 25px;
-        padding-top: 66px;
-        background-color: #fff;
-        &-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 66px;
-            width: 100%;
-            background-color: v-bind('phoneContentHeaderBgColor');
-            background-size: 100%;
-            background-image: url('@/assets/phone-top-black.79cd4211.png');
-            z-index: 9;
+        padding: 10px 15px;
+        background: #f8f9fa;
+        &-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #595961;
+            margin-top: 5px;
         }
     }
     &-footer-box {
@@ -78,6 +60,7 @@ const phoneContentHeaderBgColor = ref<string>('#fff')
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 99;
         &::after {
             position: absolute;
             content: "";

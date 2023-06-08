@@ -7,8 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
-    ABreadcrumbItem: typeof import('ant-design-vue/es')['BreadcrumbItem']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACarousel: typeof import('ant-design-vue/es')['Carousel']
     ACollapse: typeof import('ant-design-vue/es')['Collapse']
@@ -16,20 +14,17 @@ declare module 'vue' {
     AImage: typeof import('ant-design-vue/es')['Image']
     ALayout: typeof import('ant-design-vue/es')['Layout']
     ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
-    ALayoutFooter: typeof import('ant-design-vue/es')['LayoutFooter']
     ALayoutHeader: typeof import('ant-design-vue/es')['LayoutHeader']
     ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
-    ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     Component: typeof import('./src/components/homeTemplate/module/component/index.vue')['default']
-    ComponentModule: typeof import('./src/components/homeTemplate/componentModule/index.vue')['default']
-    copy: typeof import('./src/components/homeTemplate/componentModule/index copy.vue')['default']
+    Content: typeof import('./src/components/homeTemplate/module/content/index.vue')['default']
+    Header: typeof import('./src/components/homeTemplate/module/editor/header/header.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     HomeTemplate: typeof import('./src/components/homeTemplate/index.vue')['default']
-    Index1: typeof import('./src/components/homeTemplate/index1.vue')['default']
     Index2: typeof import('./src/components/homeTemplate/index2.vue')['default']
     Layout: typeof import('./src/components/layout/layout.vue')['default']
-    Swiper: typeof import('./src/components/homeTemplate/module/swiper/index.vue')['default']
+    Swiper: typeof import('./src/components/homeTemplate/module/content/swiper/swiper.vue')['default']
   }
 }

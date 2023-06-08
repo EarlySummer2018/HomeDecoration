@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import {PictureOutlined} from '@ant-design/icons-vue'
+import { useTemplate } from "@/store";
+import { type SwiperItem, defaultSwiperItem } from "../content/swiper/swiper";
+const templateStore = useTemplate()
 const activeKey = ref<string[]>(['1'])
 
-const clickCell = (e:Event) => {
-    console.log(e);
-    
+const clickCell = (type:string) => {
+    const value:SwiperItem[] = [defaultSwiperItem, defaultSwiperItem]
+    templateStore.addModule(type,value)
 }
 </script>
 
@@ -13,7 +16,7 @@ const clickCell = (e:Event) => {
     <div class="component-module">
         <a-collapse v-model:activeKey="activeKey" expand-icon-position="right" ghost>
             <a-collapse-panel key="1" header="媒体组件">
-                <div class="cell" @click="clickCell">
+                <div class="cell" @click="clickCell('swiper')">
                     <div class="cell-item">
                         <PictureOutlined class="icon" />
                         <span class="name">轮播图</span>

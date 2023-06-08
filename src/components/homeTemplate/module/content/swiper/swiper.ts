@@ -2,9 +2,10 @@ import guid from "@/utils/guid";
 
 export interface SwiperItem {
     id: number | string,
-    title: string,
+    title?: string,
     path: string,
     upload_id?: number | string,
+    isShowTitle?: boolean,
     isNew?: boolean,
 }
 export const defaultSwiperItem:SwiperItem = {

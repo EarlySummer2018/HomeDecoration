@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { type SwiperItem, defaultSwiperItem } from "./index";
+import { ref } from "vue";
+import { useTemplate, useSwiper } from '@/store'
+import { type SwiperItem } from "./swiper";
 import errImg from "@/utils/loadErrorImg";
-const swiper = ref<SwiperItem[]>([]);
-onMounted(() => {
-  swiper.value.push(defaultSwiperItem);
-  swiper.value.push(defaultSwiperItem);
-});
-const dotPosition = ref<string>('center')
-const dotBgColor = ref<string>('hotPink')
+const props = defineProps<{swiper:SwiperItem[],current:string}>()
+const templateStore = useTemplate()
+const swiperStore = useSwiper()
 const currentSwiper = ref<number>(0)
 const swiperChange = (current: number) => {
   currentSwiper.value = current
@@ -16,15 +13,21 @@ const swiperChange = (current: number) => {
 </script>
 
 <template>
-  <div class="swiper-box">
+  <div class="swiper-box move" :data-current="props.current" :class="{ active: templateStore.current === props.current }">
     <a-carousel :dots="false" autoplay class="swiper" :afterChange="swiperChange">
-      <div class="swiper-item" v-for="item in swiper" :key="item.id">
+      <div class="swiper-item" v-for="item in props.swiper" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
       </div>
     </a-carousel>
-    <div class="swiper-dot">
-      <i v-for="({ id }, index) in swiper" :key="id" :class="['dot-item', {active: index === currentSwiper}]"></i>
+    <div class="swiper-dot" :style="{justifyContent: swiperStore.dp}">
+      <i 
+        v-for="({ id }, index) in swiper" 
+        :key="id" 
+        class="dot-item"
+        :style="{backgroundColor: index === currentSwiper?swiperStore.dbc:swiperStore.ddbc}"
+        ></i>
     </div>
+    <div class="del-btn" @click="templateStore.deleteModule(props.current)">删除</div>
   </div>
 </template>
 
@@ -53,16 +56,12 @@ const swiperChange = (current: number) => {
     bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: v-bind('dotPosition');
     .dot-item {
         border-radius: 50%;
         width: 10px;
         height: 10px;
         background-color: #fff;
         margin-left: 5px;
-        &.active {
-            background-color: v-bind('dotBgColor');
-        }
         &:first-child {
             margin-left: 0;
         }
