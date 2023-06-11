@@ -1,5 +1,3 @@
-import HeaderEditor from './header/header.vue'
+import Editor from './index.vue'
 
-export {
-    HeaderEditor
-}
+export default Editor

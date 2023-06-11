@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useTemplate } from '@/store'
+import { useTemplate, useEditor } from '@/store'
 import Swiper from './swiper/swiper.vue'
 import useDrag from "@/utils/useDrag";
+import { computed } from "@vue/reactivity";
+import whiteBgImg from '@/assets/phone-top-white.b2d6121b.png'
 const phoneContentHeaderBgColor = ref<string>('#fff')
 const templateStore = useTemplate()
+const { headerEditor } = useEditor()
 const {dragStart, dragEnter, dragOver} = useDrag(templateStore.list)
 const changeCurrent = (e:Event) => {
     const current = (e.target as any).dataset?.current
@@ -12,14 +15,30 @@ const changeCurrent = (e:Event) => {
         templateStore.changeCurrent(current)
     }
 }
+console.log(whiteBgImg);
+
+const titleStyle = computed(()=>{
+  return {
+    color: headerEditor.textColor,
+    backgroundColor: headerEditor.titleBarBgColor,
+    backgroundImage: headerEditor.textColor === 'white' ? `url(${whiteBgImg})` : ''
+  }
+})
 </script>
 
 <template>
     <section class="content-module" @click="changeCurrent">
-        <div class="header move" data-current="1" :class="{ active: templateStore.current === '1' }">
+        <div 
+          class="header move" 
+          data-current="header" 
+          :class="{ active: templateStore.current === 'header' }"
+          :style="titleStyle"
+        >
+          {{ headerEditor.title }}
         </div>
         <TransitionGroup name="module" tag="div">
-            <div 
+            <div
+              style="width: 375px;"
               v-for="(item, index) in templateStore.list" 
               :key="item.id"
               :draggable="true"
@@ -56,6 +75,7 @@ const changeCurrent = (e:Event) => {
     min-height: 648px;
     position: relative;
     min-width: 375px;
+    overflow-x: hidden;
     width: 375px;
     max-height: 648px;
     box-shadow: 0 0 28px 0 #ccc;
@@ -73,6 +93,9 @@ const changeCurrent = (e:Event) => {
         background-size: 100%;
         background-image: url('@/assets/phone-top-black.79cd4211.png');
         z-index: 9;
+        display: flex;
+        justify-content: center;
+        padding-top: 30px;
     }
 }
 </style>

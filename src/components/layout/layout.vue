@@ -87,7 +87,7 @@ watch(
   }
 
   .layout-content {
-    padding: 80px 20px 20px 20px;
+    padding: 80px 20px 80px 20px;
     min-height: calc(100vh - 64px);
     margin-left: v-bind('headerLeft');
     transition: margin 0.2s linear;

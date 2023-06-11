@@ -13,7 +13,7 @@ const clickCell = (type:string) => {
 </script>
 
 <template>
-    <div class="component-module">
+    <div class="component-module" draggable="false">
         <a-collapse v-model:activeKey="activeKey" expand-icon-position="right" ghost>
             <a-collapse-panel key="1" header="媒体组件">
                 <div class="cell" @click="clickCell('swiper')">

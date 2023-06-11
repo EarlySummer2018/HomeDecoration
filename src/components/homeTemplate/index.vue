@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ComponentModule, ContentModule} from './module'
+import {ComponentModule, ContentModule, EditorModule} from './module'
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import {ComponentModule, ContentModule} from './module'
         </section>
         <content-module></content-module>
         <section class="col editor">
-            <div class="editor-title">页面设置</div>
+            <editor-module></editor-module>
         </section>
     </div>
     <footer class="home-template-index-footer-box">
@@ -23,8 +23,6 @@ import {ComponentModule, ContentModule} from './module'
 .home-template-index {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    // padding-bottom: 100px;
     &-container {
         min-height: calc(100vh - 150px);
         display: flex;
@@ -43,12 +41,6 @@ import {ComponentModule, ContentModule} from './module'
         min-width: 374px;
         padding: 10px 15px;
         background: #f8f9fa;
-        &-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #595961;
-            margin-top: 5px;
-        }
     }
     &-footer-box {
         position: fixed;

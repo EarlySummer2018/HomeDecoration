@@ -7,7 +7,7 @@ interface Module<T> {
 }
 export default defineStore('template', {
     state: () => ({
-        currentModule: '',
+        currentModule: 'header',
         modulesList: [] as any
     }),
     actions: {
