@@ -32,6 +32,7 @@ declare module 'vue' {
     HomeTemplate: typeof import('./src/components/homeTemplate/index.vue')['default']
     Index2: typeof import('./src/components/homeTemplate/index2.vue')['default']
     Layout: typeof import('./src/components/layout/layout.vue')['default']
+    Search: typeof import('./src/components/homeTemplate/module/content/search/search.vue')['default']
     Swiper: typeof import('./src/components/homeTemplate/module/content/swiper/swiper.vue')['default']
   }
 }

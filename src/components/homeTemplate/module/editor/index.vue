@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HeaderEdtior from './header/header.vue'
+import Search from './search/search.vue';
 import { useTemplate } from '@/store';
 const templateStore = useTemplate()
 </script>
@@ -7,7 +8,8 @@ const templateStore = useTemplate()
 <template>
   <div class="editor-index">
     <div class="title mt15">页面设置</div>
-    <HeaderEdtior v-show="templateStore.current === 'header'" />
+    <Search v-if="templateStore.current === 'search'" />
+    <HeaderEdtior v-else-if="templateStore.current === 'header'" />
   </div>
 </template>
 

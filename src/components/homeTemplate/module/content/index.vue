@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useTemplate, useEditor } from '@/store'
 import Swiper from './swiper/swiper.vue'
+import Search from './search/search.vue'
 import useDrag from "@/utils/useDrag";
 import { computed } from "@vue/reactivity";
 import whiteBgImg from '@/assets/phone-top-white.b2d6121b.png'
@@ -46,7 +47,8 @@ const titleStyle = computed(()=>{
               @dragenter="dragEnter($event, index)"
               @dragover="dragOver($event)"
             >
-              <swiper v-if="item.type === 'swiper'" :current="item.id" :swiper="item.value"></swiper>
+              <Search v-if="item.type === 'search'" :current="item.type" :value="item.value"></Search>
+              <swiper v-else="item.type === 'swiper'" :current="item.type" :swiper="item.value"></swiper>
             </div>
         </TransitionGroup>
     </section>

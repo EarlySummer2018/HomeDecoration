@@ -1,13 +1,22 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import {PictureOutlined} from '@ant-design/icons-vue'
+import {PictureOutlined,SearchOutlined} from '@ant-design/icons-vue'
 import { useTemplate } from "@/store";
-import { type SwiperItem, defaultSwiperItem } from "../content/swiper/swiper";
+import { defaultSwiperItem } from "../content/swiper/swiper";
 const templateStore = useTemplate()
 const activeKey = ref<string[]>(['1'])
 
 const clickCell = (type:string) => {
-    const value:SwiperItem[] = [defaultSwiperItem, defaultSwiperItem]
+    let value:any = []
+    if (type === 'swiper') {
+        value = [defaultSwiperItem, defaultSwiperItem]
+    }else if (type === 'search') {
+        value = {
+            placeholder: '请输入搜索关键字',
+            type: 'square',
+            align: 'left'
+        }
+    }
     templateStore.addModule(type,value)
 }
 </script>
@@ -16,10 +25,14 @@ const clickCell = (type:string) => {
     <div class="component-module" draggable="false">
         <a-collapse v-model:activeKey="activeKey" expand-icon-position="right" ghost>
             <a-collapse-panel key="1" header="媒体组件">
-                <div class="cell" @click="clickCell('swiper')">
-                    <div class="cell-item">
+                <div class="cell">
+                    <div class="cell-item" @click="clickCell('swiper')">
                         <PictureOutlined class="icon" />
                         <span class="name">轮播图</span>
+                    </div>
+                    <div class="cell-item"  @click="clickCell('search')">
+                        <SearchOutlined class="icon" />
+                        <span class="name">搜索框</span>
                     </div>
                 </div>
             </a-collapse-panel>
