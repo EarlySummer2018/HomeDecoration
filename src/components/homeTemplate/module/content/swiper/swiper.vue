@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useTemplate, useSwiper } from '@/store'
 import { type SwiperItem } from "./swiper";
 import errImg from "@/utils/loadErrorImg";
-const props = defineProps<{swiper:SwiperItem[],current:string}>()
+const props = defineProps<{swiper: SwiperItem[],type: string, id: string}>()
 const templateStore = useTemplate()
 const swiperStore = useSwiper()
 const currentSwiper = ref<number>(0)
@@ -13,7 +13,7 @@ const swiperChange = (current: number) => {
 </script>
 
 <template>
-  <div class="swiper-box move" :data-current="props.current" :class="{ active: templateStore.current === props.current }">
+  <div class="swiper-box move" :data-type="props.type" :data-id="props.id" :class="{ active: templateStore.id === props.id }">
     <a-carousel :dots="false" autoplay class="swiper" :afterChange="swiperChange">
       <div class="swiper-item" v-for="item in props.swiper" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
@@ -27,7 +27,7 @@ const swiperChange = (current: number) => {
         :style="{backgroundColor: index === currentSwiper?swiperStore.dbc:swiperStore.ddbc}"
         ></i>
     </div>
-    <div class="del-btn" @click="templateStore.deleteModule(props.current)">删除</div>
+    <div class="del-btn" @click="templateStore.deleteModule(props.id)">删除</div>
   </div>
 </template>
 

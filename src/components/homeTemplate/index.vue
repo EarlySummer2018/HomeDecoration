@@ -1,5 +1,11 @@
 <script lang="ts" setup>
+import { useSearch } from '@/store';
 import {ComponentModule, ContentModule, EditorModule} from './module'
+const searchStore = useSearch();
+const save = () => {
+    console.log(searchStore);
+    
+}
 </script>
 
 <template>
@@ -14,7 +20,7 @@ import {ComponentModule, ContentModule, EditorModule} from './module'
         </section>
     </div>
     <footer class="home-template-index-footer-box">
-        <a-button style="position: relative;z-index: 2;" type="primary">保存</a-button>
+        <a-button style="position: relative;z-index: 2;" type="primary" @click="save()">保存</a-button>
     </footer>
   </div>
 </template>

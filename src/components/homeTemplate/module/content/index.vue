@@ -11,12 +11,12 @@ const templateStore = useTemplate()
 const { headerEditor } = useEditor()
 const {dragStart, dragEnter, dragOver} = useDrag(templateStore.list)
 const changeCurrent = (e:Event) => {
-    const current = (e.target as any).dataset?.current
-    if (current) {
-        templateStore.changeCurrent(current)
+    const type = (e.target as any).dataset?.type
+    const id = (e.target as any).dataset?.id
+    if (type && id) {
+        templateStore.changeCurrent(id, type)
     }
 }
-console.log(whiteBgImg);
 
 const titleStyle = computed(()=>{
   return {
@@ -31,8 +31,9 @@ const titleStyle = computed(()=>{
     <section class="content-module" @click="changeCurrent">
         <div 
           class="header move" 
-          data-current="header" 
-          :class="{ active: templateStore.current === 'header' }"
+          data-type="header"
+          data-id="header"
+          :class="{ active: templateStore.id === 'header' }"
           :style="titleStyle"
         >
           {{ headerEditor.title }}
@@ -47,8 +48,8 @@ const titleStyle = computed(()=>{
               @dragenter="dragEnter($event, index)"
               @dragover="dragOver($event)"
             >
-              <Search v-if="item.type === 'search'" :current="item.type" :value="item.value"></Search>
-              <swiper v-else="item.type === 'swiper'" :current="item.type" :swiper="item.value"></swiper>
+              <Search v-if="item.type === 'search'" :id="item.id" :type="item.type" :value="item.value"></Search>
+              <swiper v-else="item.type === 'swiper'" :id="item.id" :type="item.type" :swiper="item.value"></swiper>
             </div>
         </TransitionGroup>
     </section>

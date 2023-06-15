@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import { SearchOutlined } from "@ant-design/icons-vue";
-const props = defineProps<{ current: string; value: any }>();
-import { useTemplate } from "@/store";
+const props = defineProps<{ id: string; value: any, type: string}>();
+import { useSearch, useTemplate } from "@/store";
 const templateStore = useTemplate();
+const searchStore = useSearch();
 </script>
 
 <template>
   <div
     class="search move"
-    :data-current="props.current"
-    :class="{ active: templateStore.current === props.current }"
+    :data-type="props.type"
+    :data-id="props.id"
+    :class="{ active: templateStore.id === props.id }"
   >
     <div class="search-bar">
       <SearchOutlined class="icon" />
-      <span>{{ value.placeholder }}</span>
+      <span>{{ searchStore.pl }}</span>
     </div>
-    <div class="del-btn" @click="templateStore.deleteModule(props.current)">
+    <div class="del-btn" @click="templateStore.deleteModule(props.id)">
       删除
     </div>
   </div>

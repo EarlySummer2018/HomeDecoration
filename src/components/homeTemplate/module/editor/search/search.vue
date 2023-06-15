@@ -1,10 +1,17 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Card from '@/components/card/card'
+import { useSearch } from "@/store";
 const activeKey = ref<number | string>(1)
 const searchStyle = ref<string>('square')
 const textAlign = ref<string>('left')
 const searchPlaceholder = ref<string>('请输入关键词进行搜索')
+const searchStore = useSearch();
+onMounted(()=>{
+  searchStyle.value = searchStore.style
+  textAlign.value = searchStore.ta
+  searchPlaceholder.value = searchStore.pl
+})
 </script>
 
 <template>
@@ -14,7 +21,11 @@ const searchPlaceholder = ref<string>('请输入关键词进行搜索')
         <Card title="内容设置">
           <div class="cell">
             <span class="label">提示文字</span>
-            <a-input v-model:value="searchPlaceholder" placeholder="请输入关键词进行搜索" />
+            <a-input
+              v-model:value="searchPlaceholder"
+              @change="(e:any)=>searchStore.setPlaceholder(e.target.value)"
+              placeholder="请输入关键词进行搜索"
+            />
           </div>
         </Card>
       </a-tab-pane>

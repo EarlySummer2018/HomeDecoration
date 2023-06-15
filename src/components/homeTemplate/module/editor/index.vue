@@ -8,8 +8,8 @@ const templateStore = useTemplate()
 <template>
   <div class="editor-index">
     <div class="title mt15">页面设置</div>
-    <Search v-if="templateStore.current === 'search'" />
-    <HeaderEdtior v-else-if="templateStore.current === 'header'" />
+    <Search v-if="templateStore.type === 'search'" />
+    <HeaderEdtior v-else-if="templateStore.type === 'header'" />
   </div>
 </template>
 

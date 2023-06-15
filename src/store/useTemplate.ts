@@ -7,12 +7,14 @@ interface Module<T> {
 }
 export default defineStore('template', {
     state: () => ({
-        currentModule: 'header',
+        currentId: 'header',
+        currentType: 'header',
         modulesList: [] as any
     }),
     actions: {
-        changeCurrent(index: string) {
-            this.currentModule = index
+        changeCurrent(id: string, type: string) {
+            this.currentId = id,
+            this.currentType = type
         },
         addModule<T>(type: string, value: T) {
             const m: Module<T> = {
@@ -31,7 +33,8 @@ export default defineStore('template', {
         }
     },
     getters: {
-        current: (state) => state.currentModule,
-        list: (state) => state.modulesList
+        id: (state) => state.currentId,
+        list: (state) => state.modulesList,
+        type: state => state.currentType
     }
 })
