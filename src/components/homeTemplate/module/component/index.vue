@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import {PictureOutlined,SearchOutlined} from '@ant-design/icons-vue'
 import { useTemplate } from "@/store";
 import { defaultSwiperItem } from "../content/swiper/swiper";
@@ -7,15 +7,17 @@ const templateStore = useTemplate()
 const activeKey = ref<string[]>(['1'])
 
 const clickCell = (type:string) => {
-    let value:any = []
+    let value:any
     if (type === 'swiper') {
-        value = [defaultSwiperItem, defaultSwiperItem]
+        value = ref([defaultSwiperItem, JSON.parse(JSON.stringify(defaultSwiperItem))])
     }else if (type === 'search') {
-        value = {
-            placeholder: '请输入搜索关键字',
-            type: 'square',
-            align: 'left'
-        }
+        value = reactive({
+            placeholder: '请输入关键词进行搜索',
+            textAlign: 'left',
+            style: 'square',
+            containerBgColor: '#f1f1f2',
+            searchBgColor: '#fff'
+        })
     }
     templateStore.addModule(type,value)
 }

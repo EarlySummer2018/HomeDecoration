@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { SearchOutlined } from "@ant-design/icons-vue";
 const props = defineProps<{ id: string; value: any, type: string}>();
-import { useSearch, useTemplate } from "@/store";
+import { useTemplate } from "@/store";
 const templateStore = useTemplate();
-const searchStore = useSearch();
 </script>
 
 <template>
@@ -13,9 +12,9 @@ const searchStore = useSearch();
     :data-id="props.id"
     :class="{ active: templateStore.id === props.id }"
   >
-    <div class="search-bar">
+    <div class="search-bar" :class="[props.value.style, props.value.textAlign]">
       <SearchOutlined class="icon" />
-      <span>{{ searchStore.pl }}</span>
+      <span>{{ props.value.placeholder }}</span>
     </div>
     <div class="del-btn" @click="templateStore.deleteModule(props.id)">
       删除
@@ -38,6 +37,21 @@ const searchStore = useSearch();
     align-items: center;
     font-size: 12px;
     background-color: #fff;
+    &.round {
+      border-radius: 4px;
+    }
+    &.circular {
+      border-radius: 100px;
+    }
+    &.left {
+      justify-content: flex-start;
+    }
+    &.right {
+      justify-content: flex-end;
+    }
+    &.center {
+      justify-content: center;
+    }
   }
 }
 </style>

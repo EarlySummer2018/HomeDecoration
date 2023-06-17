@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useTemplate, useSwiper } from '@/store'
-import { type SwiperItem } from "./swiper";
 import errImg from "@/utils/loadErrorImg";
+import type { SwiperItem } from "@/interface/swiper";
 const props = defineProps<{swiper: SwiperItem[],type: string, id: string}>()
 const templateStore = useTemplate()
 const swiperStore = useSwiper()
@@ -17,14 +17,15 @@ const swiperChange = (current: number) => {
     <a-carousel :dots="false" autoplay class="swiper" :afterChange="swiperChange">
       <div class="swiper-item" v-for="item in props.swiper" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
+        <div class="swiper-title">{{ item.title }}</div>
       </div>
     </a-carousel>
-    <div class="swiper-dot" :style="{justifyContent: swiperStore.dp}">
+    <div class="swiper-dot" :style="{justifyContent: swiperStore.dotPosition}">
       <i 
         v-for="({ id }, index) in swiper" 
         :key="id" 
         class="dot-item"
-        :style="{backgroundColor: index === currentSwiper?swiperStore.dbc:swiperStore.ddbc}"
+        :style="{backgroundColor: index === currentSwiper?swiperStore.dotDefaultBgColor:swiperStore.dotDefaultBgColor}"
         ></i>
     </div>
     <div class="del-btn" @click="templateStore.deleteModule(props.id)">删除</div>
@@ -41,6 +42,14 @@ const swiperChange = (current: number) => {
       position: relative;
       width: 375px;
       height: 200px;
+      .swiper-title {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        left: 0;
+        bottom: 0;
+        background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,1));
+      }
       .img {
         width: 375px;
         height: 200px;

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useTemplate, useEditor } from '@/store'
+import { useTemplate, useEditor, useSearch, useSwiper } from '@/store'
 import Swiper from './swiper/swiper.vue'
 import Search from './search/search.vue'
 import useDrag from "@/utils/useDrag";
@@ -8,6 +8,8 @@ import { computed } from "@vue/reactivity";
 import whiteBgImg from '@/assets/phone-top-white.b2d6121b.png'
 const phoneContentHeaderBgColor = ref<string>('#fff')
 const templateStore = useTemplate()
+const searchStore = useSearch();
+const swiperStore = useSwiper();
 const { headerEditor } = useEditor()
 const {dragStart, dragEnter, dragOver} = useDrag(templateStore.list)
 const changeCurrent = (e:Event) => {
@@ -15,6 +17,12 @@ const changeCurrent = (e:Event) => {
     const id = (e.target as any).dataset?.id
     if (type && id) {
         templateStore.changeCurrent(id, type)
+        const val = templateStore.list.filter((el:any)=>el.id === id)
+        if (type === 'search') {
+          searchStore.setSearch(val[0].value) 
+        } else if (type === 'swiper') {
+          swiperStore.setSwiper(val[0].value)
+        }
     }
 }
 

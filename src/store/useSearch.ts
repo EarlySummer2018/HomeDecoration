@@ -2,42 +2,49 @@ import { defineStore } from "pinia";
 type Align = 'left' | 'center' | 'right'
 type Style = 'square' | 'round' | 'circular'
 interface State {
-    placeholder: string,
-    textAlign: Align,
-    style: Style,
-    containerBgColor: string,
-    searchBgColor: string
+    search: {
+      placeholder: string,
+      textAlign: Align,
+      style: Style,
+      containerBgColor: string,
+      searchBgColor: string
+    }
 }
 export default defineStore("useSearch", {
   state: ():State => ({
-    placeholder: '请输入关键词进行搜索',
-    textAlign: 'left',
-    style: 'square',
-    containerBgColor: '#f1f1f2',
-    searchBgColor: '#fff'
+    search: {
+      placeholder: '请输入关键词进行搜索',
+      textAlign: 'left',
+      style: 'square',
+      containerBgColor: '#f1f1f2',
+      searchBgColor: '#fff'
+    }
   }),
   actions: {
+    setSearch(val:any) {
+      this.search = val
+    },
     setPlaceholder(val:string) {
-        this.placeholder = val
+        this.search.placeholder = val
     },
     setTextAlign(align: Align) {
-        this.textAlign = align
+        this.search.textAlign = align
     },
     setStyle(style:Style) {
-        this.style = style
+        this.search.style = style
     },
     setContainerBgColor(color:string) {
-        this.containerBgColor = color
+        this.search.containerBgColor = color
     },
     setSearchBgColor(color:string) {
-        this.searchBgColor = color
+        this.search.searchBgColor = color
     }
   },
   getters: {
-    pl: state => state.placeholder,
-    ta: state => state.textAlign,
-    sl: state => state.style,
-    cbg: state => state.containerBgColor,
-    sbg: state => state.searchBgColor
+    placeholder: state => state.search.placeholder,
+    textAlign: state => state.search.textAlign,
+    style: state => state.search.style,
+    containerBgColor: state => state.search.containerBgColor,
+    searchBgColor: state => state.search.searchBgColor,
   }
 });

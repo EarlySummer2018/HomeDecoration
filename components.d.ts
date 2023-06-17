@@ -34,5 +34,6 @@ declare module 'vue' {
     Layout: typeof import('./src/components/layout/layout.vue')['default']
     Search: typeof import('./src/components/homeTemplate/module/content/search/search.vue')['default']
     Swiper: typeof import('./src/components/homeTemplate/module/content/swiper/swiper.vue')['default']
+    TabCard: typeof import('./src/components/tabsCard/tabCard.vue')['default']
   }
 }
