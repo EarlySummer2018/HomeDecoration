@@ -9,3 +9,6 @@ export const defaultSwiperItem:SwiperItem = {
     link: '',
     linkType: ''
 }
+export const createSwiper = ():SwiperItem => {
+    return JSON.parse(JSON.stringify(defaultSwiperItem))
+}

@@ -14,6 +14,8 @@
 *::after,*::before,* {
     box-sizing: border-box;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 @for $i from 5 through 30 {
     .mt-#{$i} {

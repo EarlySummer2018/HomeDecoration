@@ -5,26 +5,26 @@ interface Props {
   cTab?: string,
   cTitle?: string,
   sTab?: string,
-  sTitle?: string
+  sTitle?: string,
 }
 const activeKey = ref<number | string>(1);
 const props = withDefaults(defineProps<Props>(), {
   cTab: '内容设置',
   cTitle: '内容设置',
   sTab: '样式设置',
-  sTitle: '样式设置'
+  sTitle: '样式设置',
 })
 </script>
 <template>
   <div class="tabs-card">
     <a-tabs v-model:activeKey="activeKey" animated centered>
       <a-tab-pane :key="1" :tab="props.cTab">
-        <Card :title="props.cTitle">
+        <Card :title="props.cTitle" v-bind="$attrs">
           <slot name="content"></slot>
         </Card>
       </a-tab-pane>
       <a-tab-pane :key="2" :tab="props.sTab">
-        <Card :title="props.sTitle">
+        <Card :title="props.sTitle" v-bind="$attrs">
           <slot name="style"></slot>
         </Card>
       </a-tab-pane>

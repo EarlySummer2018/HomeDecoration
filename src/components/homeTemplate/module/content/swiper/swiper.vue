@@ -17,7 +17,7 @@ const swiperChange = (current: number) => {
     <a-carousel :dots="false" autoplay class="swiper" :afterChange="swiperChange">
       <div class="swiper-item" v-for="item in props.swiper" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
-        <div class="swiper-title">{{ item.title }}</div>
+        <div class="swiper-title" v-if="item.title">{{ item.title }}</div>
       </div>
     </a-carousel>
     <div class="swiper-dot" :style="{justifyContent: swiperStore.dotPosition}">
@@ -25,7 +25,7 @@ const swiperChange = (current: number) => {
         v-for="({ id }, index) in swiper" 
         :key="id" 
         class="dot-item"
-        :style="{backgroundColor: index === currentSwiper?swiperStore.dotDefaultBgColor:swiperStore.dotDefaultBgColor}"
+        :style="{backgroundColor: index === currentSwiper?swiperStore.dotBgColor:swiperStore.dotDefaultBgColor}"
         ></i>
     </div>
     <div class="del-btn" @click="templateStore.deleteModule(props.id)">删除</div>
@@ -35,6 +35,7 @@ const swiperChange = (current: number) => {
 <style lang="scss">
 .swiper-box {
   position: relative;
+  overflow: hidden;
   .swiper {
     width: 375px;
     height: 200px;

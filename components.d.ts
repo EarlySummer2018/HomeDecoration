@@ -23,6 +23,7 @@ declare module 'vue' {
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
+    AUpload: typeof import('ant-design-vue/es')['Upload']
     Card: typeof import('./src/components/card/card.vue')['default']
     Component: typeof import('./src/components/homeTemplate/module/component/index.vue')['default']
     Content: typeof import('./src/components/homeTemplate/module/content/index.vue')['default']
