@@ -30,6 +30,9 @@ export default defineStore('template', {
             if (~index) {
                 this.modulesList.splice(index, 1)
             }
+        },
+        updateModuleList(modulesList:any) {
+            this.modulesList = modulesList
         }
     },
     getters: {

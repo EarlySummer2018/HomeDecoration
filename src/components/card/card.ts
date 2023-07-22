@@ -6,8 +6,6 @@ interface Props {
     padding?: string
 }
 const Card = (props: Props, ctx:any) => {
-    console.log(props);
-    
     return h(
         'div',
         {

@@ -1,70 +1,95 @@
 <script lang="ts" setup>
-import { ref } from "vue";
-import { useTemplate, useEditor, useSearch, useSwiper } from '@/store'
-import Swiper from './swiper/swiper.vue'
-import Search from './search/search.vue'
-import useDrag from "@/utils/useDrag";
-import { computed } from "@vue/reactivity";
-import whiteBgImg from '@/assets/phone-top-white.b2d6121b.png'
-const phoneContentHeaderBgColor = ref<string>('#fff')
-const templateStore = useTemplate()
+import { ref, computed } from "vue";
+import draggable from "vuedraggable";
+import { useTemplate, useEditor, useSearch, useSwiper } from "@/store";
+// import deepClone from '@/utils/deepClone'
+import Swiper from "./swiper/swiper.vue";
+import Search from "./search/search.vue";
+import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
+const drag = ref<boolean>(false);
+const phoneContentHeaderBgColor = ref<string>("#fff");
+const templateStore = useTemplate();
+const contentList = computed({
+  get: () => {
+    return templateStore.list
+  },
+  set: (val) => {
+    templateStore.updateModuleList(val)
+  }
+});
 const searchStore = useSearch();
 const swiperStore = useSwiper();
-const { headerEditor } = useEditor()
-const {dragStart, dragEnter, dragOver} = useDrag(templateStore.list)
-const changeCurrent = (e:Event) => {
-    const type = (e.target as any).dataset?.type
-    const id = (e.target as any).dataset?.id
-    if (type && id) {
-        templateStore.changeCurrent(id, type)
-        const val = templateStore.list.filter((el:any)=>el.id === id)
-        if (type === 'search') {
-          searchStore.setSearch(val[0].value) 
-        } else if (type === 'swiper') {
-          swiperStore.setSwiper(val[0].value)
-        }
+const { headerEditor } = useEditor();
+const changeCurrent = (e: Event) => {
+  const type = (e.target as any).dataset?.type;
+  const id = (e.target as any).dataset?.id;
+  if (type && id) {
+    templateStore.changeCurrent(id, type);
+    const val = templateStore.list.filter((el: any) => el.id === id);
+    if (type === "search") {
+      searchStore.setSearch(val[0].value);
+    } else if (type === "swiper") {
+      swiperStore.setSwiper(val[0].value);
     }
-}
+  }
+};
 
-const titleStyle = computed(()=>{
+const titleStyle = computed(() => {
   return {
     color: headerEditor.textColor,
     backgroundColor: headerEditor.titleBarBgColor,
-    backgroundImage: headerEditor.textColor === 'white' ? `url(${whiteBgImg})` : ''
-  }
-})
+    backgroundImage:
+      headerEditor.textColor === "white" ? `url(${whiteBgImg})` : "",
+  };
+});
 </script>
 
 <template>
-    <section class="content-module" @click="changeCurrent">
-        <div 
-          class="header move" 
-          data-type="header"
-          data-id="header"
-          :class="{ active: templateStore.id === 'header' }"
-          :style="titleStyle"
+  <section class="content-module" @click="changeCurrent">
+    <div
+      class="header move"
+      data-type="header"
+      data-id="header"
+      :class="{ active: templateStore.id === 'header' }"
+      :style="titleStyle"
+    >
+      {{ headerEditor.title }}
+    </div>
+    <draggable
+      v-model="contentList"
+      item-key="id"
+      v-bind="{ animation: 120 }"
+      class="list-group"
+      :component-data="{
+        tag: 'div',
+        type: 'transition-group',
+        name: !drag ? 'flip-list' : null,
+      }"
+      @start="drag = true"
+      @end="drag = false"
+    >
+      <template #item="{ element }">
+        <Search
+          v-if="element.type === 'search'"
+          :id="element.id"
+          :type="element.type"
+          :value="element.value"
+        ></Search>
+        <swiper
+          v-else-if="element.type === 'swiper'"
+          :id="element.id"
+          :type="element.type"
+          :swiper="element.value"
         >
-          {{ headerEditor.title }}
-        </div>
-        <TransitionGroup name="module" tag="div">
-            <div
-              style="width: 375px;"
-              v-for="(item, index) in templateStore.list" 
-              :key="item.id"
-              :draggable="true"
-              @dragstart="dragStart(index)"
-              @dragenter="dragEnter($event, index)"
-              @dragover="dragOver($event)"
-            >
-              <Search v-if="item.type === 'search'" :id="item.id" :type="item.type" :value="item.value"></Search>
-              <swiper v-else="item.type === 'swiper'" :id="item.id" :type="item.type" :swiper="item.value"></swiper>
-            </div>
-        </TransitionGroup>
-    </section>
+        </swiper>
+      </template>
+    </draggable>
+  </section>
 </template>
 
 <style lang="scss">
-.module-move, /* 对移动中的元素应用的过渡 */
+.module-move,
+/* 对移动中的元素应用的过渡 */
 .module-enter-active,
 .module-leave-active {
   transition: all 0.2s ease;
@@ -81,32 +106,33 @@ const titleStyle = computed(()=>{
 .module-leave-active {
   position: absolute;
 }
-.content-module {
-    background-color: #fafafa;
-    min-height: 648px;
-    position: relative;
-    min-width: 375px;
-    overflow-x: hidden;
-    width: 375px;
-    max-height: 648px;
-    box-shadow: 0 0 28px 0 #ccc;
-    margin-top: 25px;
-    padding-top: 66px;
-    background-color: #fff;
 
-    .header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 66px;
-        width: 100%;
-        background-color: v-bind('phoneContentHeaderBgColor');
-        background-size: 100%;
-        background-image: url('@/assets/phone-top-black.79cd4211.png');
-        z-index: 9;
-        display: flex;
-        justify-content: center;
-        padding-top: 30px;
-    }
+.content-module {
+  background-color: #fafafa;
+  min-height: 648px;
+  position: relative;
+  min-width: 375px;
+  overflow-x: hidden;
+  width: 375px;
+  max-height: 648px;
+  box-shadow: 0 0 28px 0 #ccc;
+  margin-top: 25px;
+  padding-top: 66px;
+  background-color: #fff;
+
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 66px;
+    width: 100%;
+    background-color: v-bind("phoneContentHeaderBgColor");
+    background-size: 100%;
+    background-image: url("@/assets/phone-top-black.79cd4211.png");
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+  }
 }
 </style>
