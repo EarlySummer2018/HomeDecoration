@@ -1,29 +1,25 @@
-import type { dp, ds, su, SwiperItem, SwiperState, tb } from '@/interface/swiper'
+import type { dp, ds, su, SwiperItem, SwiperState, SwiperStyle, tb } from '@/interface/swiper'
 import { defineStore } from 'pinia'
 
 export default defineStore('useSwiper', {
     state: (): SwiperState => ({
         swiperStyle: {
             dotPosition: 'center',
-            dotBgColor: 'hotPink',
-            dotDefaultBgColor: '#fff',
+            dotBgColor: '#ff69b4',
+            dotDefaultBgColor: '#ffffff',
             dotShape: 'round',
             dotSize: 10,
             autoPlay: true,
-            speed: 3000,
+            speed: 3,
         },
-        swiper: [{
-            id: '',
-            path: '',
-            title: '',
-            titlePosition: 'bottom',
-            link: '',
-            linkType: ''
-        }]
+        swiper: []
     }),
     actions: {
         setSwiper(swiper:SwiperItem[]) {
             this.swiper = swiper
+        },
+        setSwiperStyle(style:SwiperStyle) {
+            this.swiperStyle = style
         },
         setPath(path:string, upload_id:string|number, index:number) {
             this.swiper[index].path = path

@@ -1,25 +1,36 @@
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import {PictureOutlined,SearchOutlined} from '@ant-design/icons-vue'
 import { useTemplate } from "@/store";
 import { defaultSwiperItem } from "../content/swiper/swiper";
+import deepClone from "@/utils/deepClone";
+import guid from "@/utils/guid";
 const templateStore = useTemplate()
 const activeKey = ref<string[]>(['1'])
 
 const clickCell = (type:string) => {
-    let value:any
+    let value:any, options:any = {}
     if (type === 'swiper') {
-        value = ref([defaultSwiperItem, JSON.parse(JSON.stringify(defaultSwiperItem))])
+        value = [{...deepClone(defaultSwiperItem), id: guid()}, {...deepClone(defaultSwiperItem), id: guid()}]
+        options = {
+            dotPosition: 'center',
+            dotBgColor: '#ff69b4',
+            dotDefaultBgColor: '#ffffff',
+            dotShape: 'round',
+            dotSize: 10,
+            autoPlay: true,
+            speed: 3,
+        }
     }else if (type === 'search') {
-        value = reactive({
+        value = {
             placeholder: '请输入关键词进行搜索',
             textAlign: 'left',
             style: 'square',
             containerBgColor: '#f1f1f2',
             searchBgColor: '#fff'
-        })
+        }
     }
-    templateStore.addModule(type,value)
+    templateStore.addModule(type, value, options)
 }
 </script>
 

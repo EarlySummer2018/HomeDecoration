@@ -18,7 +18,6 @@ const contentList = computed({
   }
 });
 const searchStore = useSearch();
-const swiperStore = useSwiper();
 const { headerEditor } = useEditor();
 const changeCurrent = (e: Event) => {
   const type = (e.target as any).dataset?.type;
@@ -29,7 +28,7 @@ const changeCurrent = (e: Event) => {
     if (type === "search") {
       searchStore.setSearch(val[0].value);
     } else if (type === "swiper") {
-      swiperStore.setSwiper(val[0].value);
+      templateStore.setCurrentHandlerObject(val[0])
     }
   }
 };
@@ -80,6 +79,7 @@ const titleStyle = computed(() => {
           :id="element.id"
           :type="element.type"
           :swiper="element.value"
+          :options="element.options"
         >
         </swiper>
       </template>

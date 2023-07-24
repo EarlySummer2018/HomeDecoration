@@ -1,4 +1,5 @@
 import type { SwiperItem } from "@/interface/swiper";
+import deepClone from "@/utils/deepClone";
 import guid from "@/utils/guid";
 
 export const defaultSwiperItem:SwiperItem = {
@@ -10,5 +11,5 @@ export const defaultSwiperItem:SwiperItem = {
     linkType: ''
 }
 export const createSwiper = ():SwiperItem => {
-    return JSON.parse(JSON.stringify(defaultSwiperItem))
+    return {...deepClone(defaultSwiperItem), id: guid()}
 }

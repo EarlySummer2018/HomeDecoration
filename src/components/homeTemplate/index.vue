@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { useSearch } from '@/store';
+import { useTemplate } from '@/store';
 import {ComponentModule, ContentModule, EditorModule} from './module'
-const searchStore = useSearch();
+const templateStore = useTemplate();
 const save = () => {
-    console.log(searchStore);
-    
+    console.log(templateStore);
 }
 </script>
 
