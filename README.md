@@ -43,10 +43,7 @@ $ pnpm run dev
 ### 对于其他版本浏览器样式不兼容问题可参考，[ant-design-vue 3.2.20 常见问题](https://3x.antdv.com/docs/vue/faq-cn)
 
 ## 功能目录
-<br />
-
-### ✅：支持，❌：暂不支持，⭕️：待完善，☑️：待开发
-
+✅：支持，❌：暂不支持，⭕️：待完善，☑️：待开发
 <br />
 
 ✅ 各个模块均使用 [hooks 操作](https://github.com/EarlySummer2018/HomeDecoration/tree/main/src/hooks)
