@@ -1,6 +1,6 @@
 export type dp = 'flex-start' | 'center' | 'flex-end';
 export type ds = 'round' | 'square' | 'rectangular';
-export type tb = 'top' | 'bottom' | undefined
+export type tb = 'top' | 'bottom'
 export type su = string | undefined
 export interface SwiperItem {
     id: string,

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import draggable from "vuedraggable";
-import { useTemplate, useEditor, useSearch, useSwiper } from "@/store";
-// import deepClone from '@/utils/deepClone'
+import { useTemplate, useEditor } from "@/store";
 import Swiper from "./swiper/swiper.vue";
 import Search from "./search/search.vue";
 import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
@@ -17,7 +16,6 @@ const contentList = computed({
     templateStore.updateModuleList(val)
   }
 });
-const searchStore = useSearch();
 const { headerEditor } = useEditor();
 const changeCurrent = (e: Event) => {
   const type = (e.target as any).dataset?.type;
@@ -25,11 +23,7 @@ const changeCurrent = (e: Event) => {
   if (type && id) {
     templateStore.changeCurrent(id, type);
     const val = templateStore.list.filter((el: any) => el.id === id);
-    if (type === "search") {
-      searchStore.setSearch(val[0].value);
-    } else if (type === "swiper") {
-      templateStore.setCurrentHandlerObject(val[0])
-    }
+    templateStore.setCurrentHandlerObject(val[0])
   }
 };
 
@@ -117,11 +111,10 @@ const titleStyle = computed(() => {
   max-height: 648px;
   box-shadow: 0 0 28px 0 #ccc;
   margin-top: 25px;
-  padding-top: 66px;
   background-color: #fff;
 
   .header {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     height: 66px;

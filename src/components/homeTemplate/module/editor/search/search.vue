@@ -1,15 +1,7 @@
 <script lang="ts" setup>
-import { reactive } from "vue";
 import tabCard from "@/components/tabsCard/tabCard.vue";
-import { useSearch } from "@/store";
-const searchStore = useSearch();
-const searchContent = reactive({
-  style: searchStore.style,
-  textAlign: searchStore.textAlign,
-  placeholder: searchStore.placeholder,
-  containerBgColor: searchStore.containerBgColor,
-  searchBgColor: searchStore.searchBgColor,
-});
+import useSearch from "@/hooks/useSearch";
+const { searchContent } = useSearch();
 </script>
 
 <template>
@@ -20,7 +12,6 @@ const searchContent = reactive({
             <span class="label">提示文字</span>
             <a-input
               v-model:value="searchContent.placeholder"
-              @change="(e:any)=>searchStore.setPlaceholder(e.target.value)"
               placeholder="请输入关键词进行搜索"
             />
           </div>
@@ -31,7 +22,6 @@ const searchContent = reactive({
             <a-radio-group
               v-model:value="searchContent.style"
               button-style="solid"
-              @change="(e:any)=>searchStore.setStyle(e.target.value)"
             >
               <a-radio-button value="square">方形</a-radio-button>
               <a-radio-button value="round">圆角</a-radio-button>
@@ -43,7 +33,6 @@ const searchContent = reactive({
             <a-radio-group
               v-model:value="searchContent.textAlign"
               button-style="solid"
-              @change="(e:any)=>searchStore.setTextAlign(e.target.value)"
             >
               <a-radio-button value="left">居左</a-radio-button>
               <a-radio-button value="center">居中</a-radio-button>

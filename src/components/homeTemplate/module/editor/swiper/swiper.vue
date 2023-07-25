@@ -1,32 +1,42 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { reactive, ref } from "vue";
 import draggable from "vuedraggable";
 import tabCard from "@/components/tabsCard/tabCard.vue";
 import { useTemplate } from "@/store";
 import { PlusOutlined } from "@ant-design/icons-vue";
-import useSwiper from '@/hooks/useSwiper'
+import useSwiper from "@/hooks/useSwiper";
+import deepClone from "@/utils/deepClone";
+import { createSwiper } from "../../content/swiper/swiper";
+import { SwiperItem } from "@/interface/swiper";
 const templateStore = useTemplate();
-const {swiper, swiperStyle, removeSwiper} = useSwiper(templateStore);
+const { swiper, swiperStyle, removeSwiper } = useSwiper(templateStore);
 const drag = ref<boolean>(false);
 
 const addSwiper = () => {
-  console.log(swiper);
-  
-}
- 
+  swiper.value.push(deepClone(createSwiper()));
+};
 
 const delSwiper = (id: string) => {
-  const index = swiper.findIndex((el:any)=>el.id === id)
-  removeSwiper(index)
+  const index = swiper.value.findIndex((el: any) => el.id === id);
+  removeSwiper(index);
 };
 
 const draggableEnd = () => {
   drag.value = false;
-  
-}
+};
 
-onMounted(() => {
-});
+const linkVisible = ref<boolean>(true);
+const activeKey = ref<string>('inside');
+const inputOuterLink = ref<string>('');
+const outerLinkPrefix = ref<'http://'|'https://'>('https://')
+const currentSwiper = reactive<Partial<SwiperItem>>({})
+const openSelectLink = (swiper: SwiperItem) => {
+  Object.assign(currentSwiper, swiper)
+  linkVisible.value = true;
+};
+const handleOk = () => {
+  linkVisible.value = false;
+};
 </script>
 
 <template>
@@ -76,14 +86,27 @@ onMounted(() => {
                 >
                   <img v-if="element.path" :src="element.path" alt="swiper" />
                   <div v-else>
-                    <!-- <loading-outlined v-if="!element.path"></loading-outlined> -->
                     <plus-outlined></plus-outlined>
                   </div>
                 </a-upload>
               </div>
+              <div class="cell">
+                <span class="label">标题位置</span>
+                <a-radio-group
+                  v-model:value="element.titlePosition"
+                  button-style="solid"
+                >
+                  <a-radio-button value="top">顶部</a-radio-button>
+                  <a-radio-button value="bottom">底部</a-radio-button>
+                </a-radio-group>
+              </div>
               <div class="cell" style="margin-bottom: 0">
                 <span class="label">跳转链接</span>
-                <a-button type="link" size="mini" style="padding: 0"
+                <a-button
+                  type="link"
+                  @click="openSelectLink(element)"
+                  size="mini"
+                  style="padding: 0"
                   >选择链接</a-button
                 >
               </div>
@@ -101,8 +124,13 @@ onMounted(() => {
           <p class="style-title">样式设置</p>
           <div class="cell">
             <span class="label">切换时间</span>
-            <div class="item-slider" style="width: 190px;">
-              <a-slider v-model:value="swiperStyle.speed" :step="1" :min="1" :max="20" />
+            <div class="item-slider" style="width: 190px">
+              <a-slider
+                v-model:value="swiperStyle.speed"
+                :step="1"
+                :min="1"
+                :max="20"
+              />
               <span class="unit-text">
                 <span>{{ swiperStyle.speed }}</span>
                 <span>秒</span>
@@ -110,12 +138,38 @@ onMounted(() => {
             </div>
           </div>
           <div class="cell">
+            <span class="label">指示器大小</span>
+            <div class="item-slider" style="width: 190px">
+              <a-slider
+                v-model:value="swiperStyle.dotSize"
+                :step="1"
+                :min="5"
+                :max="15"
+              />
+              <span class="unit-text">
+                <span>{{ swiperStyle.dotSize }}</span>
+                <span>像素</span>
+              </span>
+            </div>
+          </div>
+          <div class="cell">
+            <span class="label">指示器形状</span>
+            <a-radio-group
+              v-model:value="swiperStyle.dotShape"
+              button-style="solid"
+            >
+              <a-radio-button value="round">圆形</a-radio-button>
+              <a-radio-button value="square">正方形</a-radio-button>
+              <a-radio-button value="rectangular">长方形</a-radio-button>
+            </a-radio-group>
+          </div>
+          <div class="cell">
             <span class="label">指示器默认颜色</span>
-            <input v-model="swiperStyle.dotDefaultBgColor" type="color">
+            <input v-model="swiperStyle.dotDefaultBgColor" type="color" />
           </div>
           <div class="cell">
             <span class="label">指示器激活颜色</span>
-            <input v-model="swiperStyle.dotBgColor" type="color">
+            <input v-model="swiperStyle.dotBgColor" type="color" />
           </div>
           <div class="cell">
             <span class="label">指示器位置</span>
@@ -132,9 +186,88 @@ onMounted(() => {
       </template>
     </tabCard>
   </div>
+
+  <a-modal
+    v-model:visible="linkVisible"
+    width="860px"
+    title="选择链接"
+    :maskClosable="false"
+    cancelText="取消"
+    okText="确认"
+    @ok="handleOk"
+  >
+  <a-tabs v-model:activeKey="activeKey">
+    <a-tab-pane key="inside" tab="内部链接">
+      <div class="link-list">
+        <div class="link-item">首页</div>
+        <div class="link-item">首页</div>
+        <div class="link-item">首页</div>
+      </div>
+    </a-tab-pane>
+    <a-tab-pane key="outer" tab="外部链接" force-render>
+      <div class="input-outer-link-box">
+        <a-input v-model:value="inputOuterLink">
+          <template #addonBefore>
+            <a-select v-model:value="outerLinkPrefix" style="width: 90px">
+              <a-select-option value="http://">http://</a-select-option>
+              <a-select-option value="https://">https://</a-select-option>
+            </a-select>
+          </template>
+        </a-input>
+      </div>
+      <div class="link-list">
+        <div class="link-item">百度</div>
+        <div class="link-item">火狐</div>
+        <div class="link-item">谷歌</div>
+      </div>
+    </a-tab-pane>
+  </a-tabs>
+  </a-modal>
 </template>
 
 <style lang="scss">
+.ant-modal-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.ant-modal-footer {
+  border-top: none;
+}
+.ant-modal-body {
+  max-height: 470px;
+  padding-top: 0;
+  overflow: auto;
+}
+.link-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .link-item {
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    font-size: 12.5px;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid #1890ff;
+      color: #1890ff;
+    }
+    &.active {
+      background: #1890ff;
+      border-color: #1890ff;
+      color: #fff;
+    }
+    &:last-child {
+      margin-right: auto;
+    }
+  }
+}
+.input-outer-link-box {
+  max-width: 400px;
+  margin-bottom: 15px;
+}
 .swiper-content {
   .add-btn {
     width: 100%;
@@ -178,7 +311,6 @@ onMounted(() => {
     background-color: rgb(240, 242, 245);
     padding: 12px 11px;
   }
-  
 
   .cell {
     display: flex;

@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { nextTick, ref, watch } from 'vue';
 import HeaderEdtior from './header/header.vue'
 import Search from './search/search.vue';
 import Swiper from './swiper/swiper.vue';
 import { useTemplate } from '@/store';
-import { nextTick, ref, watch } from 'vue';
+import { typeToText } from '@/utils/utils'
 const showEditor = ref<boolean>(true)
 const templateStore = useTemplate()
 watch(
@@ -17,7 +18,7 @@ watch(
 
 <template>
   <div class="editor-index" v-if="showEditor">
-    <div class="title mt15">页面设置</div>
+    <div class="title mt15">{{typeToText(templateStore.currentType)}}</div>
     <Search v-if="templateStore.type === 'search'" />
     <HeaderEdtior v-else-if="templateStore.type === 'header'" />
     <Swiper v-else-if="templateStore.type === 'swiper'" />

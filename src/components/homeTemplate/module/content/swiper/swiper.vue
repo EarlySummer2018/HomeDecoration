@@ -2,13 +2,41 @@
 import { ref } from "vue";
 import { useTemplate } from "@/store";
 import errImg from "@/utils/loadErrorImg";
-import type { SwiperItem } from "@/interface/swiper";
+import type { SwiperItem, SwiperStyle } from "@/interface/swiper";
 const props = defineProps<{ swiper: SwiperItem[]; options:any, type: string; id: string }>();
 const templateStore = useTemplate();
 const currentSwiper = ref<number>(0);
 const swiperChange = (current: number) => {
   currentSwiper.value = current;
 };
+const swiperTitleStyle = (item:SwiperItem) => {
+  if (item.titlePosition === 'bottom') {
+    return {
+      top: 'unset',
+      bottom: 0,
+      backgroundImage: `linear-gradient(to bottom, transparent, rgb(0, 0, 0))`
+    }
+  }else{
+    return {
+      top: 0,
+      bottom: 'unset',
+      backgroundImage: `linear-gradient(to top, transparent, rgb(0, 0, 0))`
+    }
+  }
+}
+
+const setDotStyle = (swiperStyle:SwiperStyle, index:number) => {
+  const width = swiperStyle.dotShape === 'rectangular' ? `${swiperStyle.dotSize * 2}px` : `${swiperStyle.dotSize}px`;
+  return {
+    width,
+    height: swiperStyle.dotSize + 'px',
+    borderRadius: swiperStyle.dotShape === 'round' ? '50%': '0',
+    backgroundColor:
+      index === currentSwiper.value
+        ? swiperStyle.dotBgColor
+        : swiperStyle.dotDefaultBgColor,
+  }
+}
 </script>
 
 <template>
@@ -21,12 +49,13 @@ const swiperChange = (current: number) => {
     <a-carousel
       :dots="false"
       autoplay
+      :autoplaySpeed="props.options.speed * 1000"
       class="swiper"
       :afterChange="swiperChange"
     >
       <div class="swiper-item" v-for="item in props.swiper" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
-        <div class="swiper-title" v-if="item.title">{{ item.title }}</div>
+        <div class="swiper-title" :style="swiperTitleStyle(item)" v-if="item.title">{{ item.title }}</div>
       </div>
     </a-carousel>
     <div
@@ -37,12 +66,7 @@ const swiperChange = (current: number) => {
         v-for="({ id }, index) in swiper"
         :key="id"
         class="dot-item"
-        :style="{
-          backgroundColor:
-            index === currentSwiper
-              ? props.options.dotBgColor
-              : props.options.dotDefaultBgColor,
-        }"
+        :style="setDotStyle(props.options, index)"
       ></i>
     </div>
     <div class="del-btn" @click="templateStore.deleteModule(props.id)">
@@ -90,7 +114,6 @@ const swiperChange = (current: number) => {
     display: flex;
     align-items: center;
     .dot-item {
-      border-radius: 50%;
       width: 10px;
       height: 10px;
       background-color: #fff;
