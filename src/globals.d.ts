@@ -1,0 +1,1 @@
+declare type ns = number | string

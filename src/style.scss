@@ -76,3 +76,17 @@
         z-index: 90;
     }
 }
+
+.link-modal {
+    .ant-modal-body {
+        padding: 0 24px 15px 24px;
+      }
+      .ant-modal-header {
+          padding-bottom: 0;
+          border-bottom: none;
+      }
+      .ant-modal-footer {
+        padding-top: 0;
+        border-top: none;
+      }
+}

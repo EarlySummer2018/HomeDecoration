@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import draggable from "vuedraggable";
-import tabCard from "@/components/tabsCard/tabCard.vue";
-import { useTemplate } from "@/store";
 import { PlusOutlined } from "@ant-design/icons-vue";
+import tabCard from "@/components/tabsCard/tabCard.vue";
+import SelectLinkModel from "@/components/SelectLinkModel";
+import { useTemplate } from "@/store";
 import useSwiper from "@/hooks/useSwiper";
 import deepClone from "@/utils/deepClone";
 import { createSwiper } from "../../content/swiper/swiper";
@@ -25,17 +26,11 @@ const draggableEnd = () => {
   drag.value = false;
 };
 
-const linkVisible = ref<boolean>(true);
-const activeKey = ref<string>('inside');
-const inputOuterLink = ref<string>('');
-const outerLinkPrefix = ref<'http://'|'https://'>('https://')
+const linkVisible = ref<boolean>(false);
 const currentSwiper = reactive<Partial<SwiperItem>>({})
 const openSelectLink = (swiper: SwiperItem) => {
   Object.assign(currentSwiper, swiper)
   linkVisible.value = true;
-};
-const handleOk = () => {
-  linkVisible.value = false;
 };
 </script>
 
@@ -186,88 +181,10 @@ const handleOk = () => {
       </template>
     </tabCard>
   </div>
-
-  <a-modal
-    v-model:visible="linkVisible"
-    width="860px"
-    title="选择链接"
-    :maskClosable="false"
-    cancelText="取消"
-    okText="确认"
-    @ok="handleOk"
-  >
-  <a-tabs v-model:activeKey="activeKey">
-    <a-tab-pane key="inside" tab="内部链接">
-      <div class="link-list">
-        <div class="link-item">首页</div>
-        <div class="link-item">首页</div>
-        <div class="link-item">首页</div>
-      </div>
-    </a-tab-pane>
-    <a-tab-pane key="outer" tab="外部链接" force-render>
-      <div class="input-outer-link-box">
-        <a-input v-model:value="inputOuterLink">
-          <template #addonBefore>
-            <a-select v-model:value="outerLinkPrefix" style="width: 90px">
-              <a-select-option value="http://">http://</a-select-option>
-              <a-select-option value="https://">https://</a-select-option>
-            </a-select>
-          </template>
-        </a-input>
-      </div>
-      <div class="link-list">
-        <div class="link-item">百度</div>
-        <div class="link-item">火狐</div>
-        <div class="link-item">谷歌</div>
-      </div>
-    </a-tab-pane>
-  </a-tabs>
-  </a-modal>
+  <SelectLinkModel v-model:visible="linkVisible" />
 </template>
 
 <style lang="scss">
-.ant-modal-header {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-.ant-modal-footer {
-  border-top: none;
-}
-.ant-modal-body {
-  max-height: 470px;
-  padding-top: 0;
-  overflow: auto;
-}
-.link-list {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .link-item {
-    padding: 5px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    font-size: 12.5px;
-    cursor: pointer;
-    &:hover {
-      border: 1px solid #1890ff;
-      color: #1890ff;
-    }
-    &.active {
-      background: #1890ff;
-      border-color: #1890ff;
-      color: #fff;
-    }
-    &:last-child {
-      margin-right: auto;
-    }
-  }
-}
-.input-outer-link-box {
-  max-width: 400px;
-  margin-bottom: 15px;
-}
 .swiper-content {
   .add-btn {
     width: 100%;

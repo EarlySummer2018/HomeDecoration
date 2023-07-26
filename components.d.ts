@@ -11,6 +11,9 @@ declare module 'vue' {
     ACarousel: typeof import('ant-design-vue/es')['Carousel']
     ACollapse: typeof import('ant-design-vue/es')['Collapse']
     ACollapsePanel: typeof import('ant-design-vue/es')['CollapsePanel']
+    ADrawer: typeof import('ant-design-vue/es')['Drawer']
+    AForm: typeof import('ant-design-vue/es')['Form']
+    AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AImage: typeof import('ant-design-vue/es')['Image']
     AInput: typeof import('ant-design-vue/es')['Input']
     ALayout: typeof import('ant-design-vue/es')['Layout']
@@ -37,6 +40,7 @@ declare module 'vue' {
     Index2: typeof import('./src/components/homeTemplate/index2.vue')['default']
     Layout: typeof import('./src/components/layout/layout.vue')['default']
     Search: typeof import('./src/components/homeTemplate/module/content/search/search.vue')['default']
+    SelectLinkModel: typeof import('./src/components/SelectLinkModel/SelectLinkModel.vue')['default']
     Swiper: typeof import('./src/components/homeTemplate/module/content/swiper/swiper.vue')['default']
     TabCard: typeof import('./src/components/tabsCard/tabCard.vue')['default']
   }
