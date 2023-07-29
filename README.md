@@ -72,7 +72,7 @@ $ pnpm run dev
 + ✅ 自定义指示器默认颜色
 + ✅ 自定义指示器激活颜色
 + ✅ 自定义指示器位置，暂支持 `left`、`right` 和 `center` 三个位置
-+ ⭕️ 选择每张轮播图跳转链接
++ ✅ 选择每张轮播图跳转链接（[链接选择组件](/src/components/SelectLinkModel/README.md)）
 
 ☑️ 图片热区
 
@@ -108,4 +108,4 @@ $ pnpm run dev
 
 ☑️ 备案号
 
-☑️ 公众公众号
+☑️ 微信公众号

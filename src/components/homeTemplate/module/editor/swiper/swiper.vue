@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import draggable from "vuedraggable";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import tabCard from "@/components/tabsCard/tabCard.vue";
@@ -27,11 +27,29 @@ const draggableEnd = () => {
 };
 
 const linkVisible = ref<boolean>(false);
-const currentSwiper = reactive<Partial<SwiperItem>>({})
+const currentLinkId = ref<string>('');
+const currentSwiperId = ref<string>('');
+const currentLinkForm = ref<InsideLinks>()
 const openSelectLink = (swiper: SwiperItem) => {
-  Object.assign(currentSwiper, swiper)
+  currentSwiperId.value = swiper.id
   linkVisible.value = true;
+  currentLinkId.value = swiper.link?.id as string
+  currentLinkForm.value = deepClone(swiper.link)
+  console.log(currentLinkId.value, swiper,909);
+  
 };
+
+const confirmSelectLink = (link:any) => {
+  const index = swiper.value.findIndex((el:SwiperItem)=>el.id === currentSwiperId.value)
+  if (~index) {
+    swiper.value[index].link = link
+  }
+}
+
+const closeModal = () => {
+  currentSwiperId.value = ''
+  currentLinkForm.value = {} as InsideLinks
+}
 </script>
 
 <template>
@@ -96,13 +114,13 @@ const openSelectLink = (swiper: SwiperItem) => {
                 </a-radio-group>
               </div>
               <div class="cell" style="margin-bottom: 0">
-                <span class="label">跳转链接</span>
+                <span class="label">跳转链接 {{ element.link?.linkName }}</span>
                 <a-button
                   type="link"
                   @click="openSelectLink(element)"
                   size="mini"
                   style="padding: 0"
-                  >选择链接</a-button
+                  >{{element.link?.linkName?'修改':'选择链接'}}</a-button
                 >
               </div>
             </div>
@@ -181,7 +199,7 @@ const openSelectLink = (swiper: SwiperItem) => {
       </template>
     </tabCard>
   </div>
-  <SelectLinkModel v-model:visible="linkVisible" />
+  <SelectLinkModel v-model:visible="linkVisible" :linkId="currentLinkId" :linkForm="currentLinkForm" @confirm="confirmSelectLink" @close="closeModal" />
 </template>
 
 <style lang="scss">

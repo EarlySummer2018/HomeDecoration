@@ -7,8 +7,6 @@ export const defaultSwiperItem:SwiperItem = {
     path: '',
     title: '',
     titlePosition: 'bottom',
-    link: '',
-    linkType: ''
 }
 export const createSwiper = ():SwiperItem => {
     return {...deepClone(defaultSwiperItem), id: guid()}

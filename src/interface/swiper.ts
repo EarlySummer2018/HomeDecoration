@@ -8,8 +8,7 @@ export interface SwiperItem {
     upload_id?: string | number,
     title?: su,
     titlePosition?: tb,
-    link?: su,
-    linkType?: su,
+    link?: InsideLinks,
 }
 export interface SwiperStyle {
     dotPosition: dp,

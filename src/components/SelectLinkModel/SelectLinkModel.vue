@@ -1,21 +1,27 @@
 <script lang="ts" setup>
-import { nextTick, reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 import { LoadingOutlined } from "@ant-design/icons-vue";
 import {
   type DrawerParams,
-  type InsideLinks,
-  type LinkForm,
   outerLinks,
   insideLinksGroup,
   groupKeys,
-} from "./linkData";
+} from "./data";
 import { isEmpty } from "@/utils/utils";
-import guid from "@/utils/guid";
 import deepClone from "@/utils/deepClone";
-defineProps({
-  visible: Boolean,
+import guid from "@/utils/guid";
+import type { FormInstance } from "ant-design-vue";
+interface Props {
+  visible: boolean;
+  linkId?: string;
+  linkForm?: InsideLinks;
+}
+const props = withDefaults(defineProps<Props>(), {
+  visible: false,
+  linkId: "",
+  linkForm: () => ({} as InsideLinks),
 });
-const emit = defineEmits(["update:visible"]);
+const emit = defineEmits(["update:visible", "confirm", "close"]);
 const selectLinkId = ref<string>("");
 const errMsg = ref<string>("");
 const isLoading = ref<boolean>(false);
@@ -70,9 +76,8 @@ const drawerIsCallabck = ref<boolean>(false);
 const handleClickItem = async (item: InsideLinks) => {
   curLinkItem.value = item;
   selectLinkId.value = item.id;
-  if (item.form) {
-    linkFormData.form = deepClone(item.form);
-    await nextTick()
+  if (item.form && item.form.length) {
+    linkFormData.form = item.form;
     drawer.visible = true;
   }
 };
@@ -89,15 +94,60 @@ const closeDrawer = () => {
   drawer.visible = false;
 };
 
-const linkFormRef = ref<HTMLElement | null>(null);
-const onFinish = (values: any) => {
-  console.log("Received values of form:", values);
-  console.log("dynamicValidateForm:", curLinkItem.value.form);
+const linkFormRef = ref<FormInstance>();
+
+const handleOk = async () => {
+  try {
+    await linkFormRef.value?.validateFields();
+    emit("update:visible", false);
+    emit("confirm", deepClone(curLinkItem.value));
+    resetModal();
+  } catch (errorInfo) {
+    console.log("Failed:", errorInfo);
+  }
 };
 
-const handleOk = () => {
-  emit("update:visible", false);
+const handleCancel = () => {
+  resetModal();
+  close()
 };
+
+const close = () => {
+  emit("update:visible", false);
+  emit('close')
+}
+
+const resetModal = () => {
+  const form = curLinkItem.value.form || []
+  for (const item of form) {
+    item.value = ''
+  }
+  curLinkItem.value = {};
+  selectLinkId.value = "";
+  linkFormData.form = []
+  drawer.visible = false;
+  drawer.title = "";
+};
+
+watch(
+  () => props.linkId,
+  (nVal) => {
+    selectLinkId.value = nVal as string;
+    if (!nVal) {
+      drawer.visible = false;
+    }
+  }
+);
+watch(
+  () => props.linkForm,
+  (nVal) => {
+    curLinkItem.value = nVal;
+    linkFormData.form = nVal.form || [];
+    if (linkFormData.form.length) {
+      drawer.visible = true
+    }
+  }
+);
 </script>
 <template>
   <a-modal
@@ -109,7 +159,7 @@ const handleOk = () => {
     cancelText="取消"
     okText="确认"
     @ok="handleOk"
-    @cancel="emit('update:visible', false)"
+    @cancel="handleCancel"
   >
     <div class="link-modal-body">
       <a-tabs v-model:activeKey="activeKey">
@@ -197,12 +247,8 @@ const handleOk = () => {
         :style="{ position: 'absolute' }"
         @close="closeDrawer()"
       >
-        <a-form
-          ref="linkFormRef"
-          :model="linkFormData"
-          @finish="onFinish"
-        >
-        {{ linkFormData.form.length }}
+        <p class="form-title">{{ curLinkItem.linkName }}</p>
+        <a-form ref="linkFormRef" :model="linkFormData">
           <a-form-item
             v-for="(item, index) in linkFormData.form"
             :key="index"
@@ -226,7 +272,7 @@ const handleOk = () => {
 <style lang="scss" scoped>
 .link-modal-body {
   position: relative;
-  min-height: 360px;
+  min-height: 600px;
   overflow: hidden;
 }
 .link-list {
@@ -272,6 +318,9 @@ const handleOk = () => {
   :deep(.ant-input-group-wrapper) {
     width: auto;
   }
+}
+.form-title {
+  font-size: 16px;
 }
 :deep(.ant-collapse-header) {
   padding: 14px 16px;

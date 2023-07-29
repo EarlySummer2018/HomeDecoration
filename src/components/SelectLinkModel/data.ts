@@ -3,23 +3,11 @@ import { computed, ref } from "vue";
 export interface DrawerParams {
     title: string,
     visible: boolean,
-
 }
 interface OuterLinkItem {
     id: string,
     linkName: string
     linkUrl: string
-}
-export interface LinkForm {
-    label: string
-    value: ns
-    required: boolean
-}
-export interface InsideLinks {
-    id: string,
-    linkName: string
-    linkUrl: string,
-    form?: LinkForm[]
 }
 interface linkGroup {
     id: string,
