@@ -4,17 +4,19 @@ import draggable from "vuedraggable";
 import { useTemplate, useEditor } from "@/store";
 import Swiper from "./swiper/swiper.vue";
 import Search from "./search/search.vue";
+import Blanks from "./blanks/blanks.vue";
+import Polyline from "./polyline/polyline.vue";
 import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
 const drag = ref<boolean>(false);
 const phoneContentHeaderBgColor = ref<string>("#fff");
 const templateStore = useTemplate();
 const contentList = computed({
   get: () => {
-    return templateStore.list
+    return templateStore.list;
   },
   set: (val) => {
-    templateStore.updateModuleList(val)
-  }
+    templateStore.updateModuleList(val);
+  },
 });
 const { headerEditor } = useEditor();
 const changeCurrent = (e: Event) => {
@@ -23,7 +25,7 @@ const changeCurrent = (e: Event) => {
   if (type && id) {
     templateStore.changeCurrent(id, type);
     const val = templateStore.list.filter((el: any) => el.id === id);
-    templateStore.setCurrentHandlerObject(val[0])
+    templateStore.setCurrentHandlerObject(val[0]);
   }
 };
 
@@ -76,6 +78,18 @@ const titleStyle = computed(() => {
           :options="element.options"
         >
         </swiper>
+        <Blanks
+          v-else-if="element.type === 'blanks'"
+          :id="element.id"
+          :type="element.type"
+          :value="element.value"
+        ></Blanks>
+        <Polyline
+          v-else-if="element.type === 'polyline'"
+          :id="element.id"
+          :type="element.type"
+          :value="element.value"
+        ></Polyline>
       </template>
     </draggable>
   </section>

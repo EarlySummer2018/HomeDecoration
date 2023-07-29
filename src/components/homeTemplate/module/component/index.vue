@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import {PictureOutlined,SearchOutlined} from '@ant-design/icons-vue'
+import {PictureOutlined,SearchOutlined, BorderOutlined, MinusOutlined} from '@ant-design/icons-vue'
 import { useTemplate } from "@/store";
 import { defaultSwiperItem } from "../content/swiper/swiper";
 import deepClone from "@/utils/deepClone";
 import guid from "@/utils/guid";
 const templateStore = useTemplate()
-const activeKey = ref<string[]>(['1'])
+const activeKey = ref<string[]>(['media','other'])
 
 const clickCell = (type:string) => {
     let value:any, options:any = {}
@@ -29,6 +29,19 @@ const clickCell = (type:string) => {
             containerBgColor: '#f1f1f2',
             searchBgColor: '#fff'
         }
+    } else if (type === 'blanks') {
+        value = {
+            height: 10,
+            bgColor: '#FFFFFF'
+        }
+    } else if (type === 'polyline') {
+        value = {
+            height: 1,
+            padding: 10,
+            style: 'solid',
+            lineColor: '#000000',
+            bgColor: '#FFFFFF'
+        }
     }
     templateStore.addModule(type, value, options)
 }
@@ -37,7 +50,7 @@ const clickCell = (type:string) => {
 <template>
     <div class="component-module" draggable="false">
         <a-collapse v-model:activeKey="activeKey" expand-icon-position="right" ghost>
-            <a-collapse-panel key="1" header="媒体组件">
+            <a-collapse-panel key="media" header="媒体组件">
                 <div class="cell">
                     <div class="cell-item" @click="clickCell('swiper')">
                         <PictureOutlined class="icon" />
@@ -46,6 +59,18 @@ const clickCell = (type:string) => {
                     <div class="cell-item"  @click="clickCell('search')">
                         <SearchOutlined class="icon" />
                         <span class="name">搜索框</span>
+                    </div>
+                </div>
+            </a-collapse-panel>
+            <a-collapse-panel key="other" header="其他组件">
+                <div class="cell">
+                    <div class="cell-item" @click="clickCell('blanks')">
+                        <BorderOutlined class="icon" />
+                        <span class="name">辅助空白</span>
+                    </div>
+                    <div class="cell-item" @click="clickCell('polyline')">
+                        <MinusOutlined class="icon" />
+                        <span class="name">辅助线</span>
                     </div>
                 </div>
             </a-collapse-panel>
@@ -92,6 +117,7 @@ const clickCell = (type:string) => {
             .icon {
                 font-size: 26px;
                 color: #595961;
+                margin-bottom: 10px;
             }
         }
     }

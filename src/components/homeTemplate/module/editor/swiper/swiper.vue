@@ -27,29 +27,30 @@ const draggableEnd = () => {
 };
 
 const linkVisible = ref<boolean>(false);
-const currentLinkId = ref<string>('');
-const currentSwiperId = ref<string>('');
-const currentLinkForm = ref<InsideLinks>()
+const currentLinkId = ref<string>("");
+const currentSwiperId = ref<string>("");
+const currentLinkForm = ref<InsideLinks>();
 const openSelectLink = (swiper: SwiperItem) => {
-  currentSwiperId.value = swiper.id
+  currentSwiperId.value = swiper.id;
   linkVisible.value = true;
-  currentLinkId.value = swiper.link?.id as string
-  currentLinkForm.value = deepClone(swiper.link)
-  console.log(currentLinkId.value, swiper,909);
-  
+  currentLinkId.value = swiper.link?.id as string;
+  currentLinkForm.value = deepClone(swiper.link);
+  console.log(currentLinkId.value, swiper, 909);
 };
 
-const confirmSelectLink = (link:any) => {
-  const index = swiper.value.findIndex((el:SwiperItem)=>el.id === currentSwiperId.value)
+const confirmSelectLink = (link: any) => {
+  const index = swiper.value.findIndex(
+    (el: SwiperItem) => el.id === currentSwiperId.value
+  );
   if (~index) {
-    swiper.value[index].link = link
+    swiper.value[index].link = link;
   }
-}
+};
 
 const closeModal = () => {
-  currentSwiperId.value = ''
-  currentLinkForm.value = {} as InsideLinks
-}
+  currentSwiperId.value = "";
+  currentLinkForm.value = {} as InsideLinks;
+};
 </script>
 
 <template>
@@ -120,7 +121,7 @@ const closeModal = () => {
                   @click="openSelectLink(element)"
                   size="mini"
                   style="padding: 0"
-                  >{{element.link?.linkName?'修改':'选择链接'}}</a-button
+                  >{{ element.link?.linkName ? "修改" : "选择链接" }}</a-button
                 >
               </div>
             </div>
@@ -199,7 +200,13 @@ const closeModal = () => {
       </template>
     </tabCard>
   </div>
-  <SelectLinkModel v-model:visible="linkVisible" :linkId="currentLinkId" :linkForm="currentLinkForm" @confirm="confirmSelectLink" @close="closeModal" />
+  <SelectLinkModel
+    v-model:visible="linkVisible"
+    :linkId="currentLinkId"
+    :linkForm="currentLinkForm"
+    @confirm="confirmSelectLink"
+    @close="closeModal"
+  />
 </template>
 
 <style lang="scss">

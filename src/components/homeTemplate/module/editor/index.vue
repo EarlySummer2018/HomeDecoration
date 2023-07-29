@@ -3,6 +3,8 @@ import { nextTick, ref, watch } from 'vue';
 import HeaderEdtior from './header/header.vue'
 import Search from './search/search.vue';
 import Swiper from './swiper/swiper.vue';
+import Blanks from './blanks/blanks.vue';
+import Polyline from './polyline/polyline.vue';
 import { useTemplate } from '@/store';
 import { typeToText } from '@/utils/utils'
 const showEditor = ref<boolean>(true)
@@ -22,6 +24,8 @@ watch(
     <Search v-if="templateStore.type === 'search'" />
     <HeaderEdtior v-else-if="templateStore.type === 'header'" />
     <Swiper v-else-if="templateStore.type === 'swiper'" />
+    <Blanks v-else-if="templateStore.type === 'blanks'" />
+    <Polyline v-else-if="templateStore.type === 'polyline'" />
   </div>
 </template>
 

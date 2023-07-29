@@ -9,36 +9,36 @@ const { searchContent } = useSearch();
     <tabCard>
       <template #content>
         <div class="cell">
-            <span class="label">提示文字</span>
-            <a-input
-              v-model:value="searchContent.placeholder"
-              placeholder="请输入关键词进行搜索"
-            />
-          </div>
+          <span class="label">提示文字</span>
+          <a-input
+            v-model:value="searchContent.placeholder"
+            placeholder="请输入关键词进行搜索"
+          />
+        </div>
       </template>
       <template #style>
         <div class="cell">
-            <span class="label">搜索框样式</span>
-            <a-radio-group
-              v-model:value="searchContent.style"
-              button-style="solid"
-            >
-              <a-radio-button value="square">方形</a-radio-button>
-              <a-radio-button value="round">圆角</a-radio-button>
-              <a-radio-button value="circular">圆弧</a-radio-button>
-            </a-radio-group>
-          </div>
-          <div class="cell">
-            <span class="label">文字对齐</span>
-            <a-radio-group
-              v-model:value="searchContent.textAlign"
-              button-style="solid"
-            >
-              <a-radio-button value="left">居左</a-radio-button>
-              <a-radio-button value="center">居中</a-radio-button>
-              <a-radio-button value="right">居右</a-radio-button>
-            </a-radio-group>
-          </div>
+          <span class="label">搜索框样式</span>
+          <a-radio-group
+            v-model:value="searchContent.style"
+            button-style="solid"
+          >
+            <a-radio-button value="square">方形</a-radio-button>
+            <a-radio-button value="round">圆角</a-radio-button>
+            <a-radio-button value="circular">圆弧</a-radio-button>
+          </a-radio-group>
+        </div>
+        <div class="cell">
+          <span class="label">文字对齐</span>
+          <a-radio-group
+            v-model:value="searchContent.textAlign"
+            button-style="solid"
+          >
+            <a-radio-button value="left">居左</a-radio-button>
+            <a-radio-button value="center">居中</a-radio-button>
+            <a-radio-button value="right">居右</a-radio-button>
+          </a-radio-group>
+        </div>
       </template>
     </tabCard>
   </div>

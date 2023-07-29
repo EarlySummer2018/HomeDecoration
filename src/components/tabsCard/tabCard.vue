@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Card from "@/components/card/card";
 interface Props {
   cTab?: string,
   cTitle?: string,
   sTab?: string,
   sTitle?: string,
+  showContent?: boolean,
+  showStyle?: boolean,
+  isHideHeader?: boolean
 }
 const activeKey = ref<number | string>(1);
 const props = withDefaults(defineProps<Props>(), {
@@ -13,17 +16,27 @@ const props = withDefaults(defineProps<Props>(), {
   cTitle: '内容设置',
   sTab: '样式设置',
   sTitle: '样式设置',
+  showContent: true,
+  showStyle: true,
+  isHideHeader: false
+})
+onMounted(()=>{
+  if (props.showContent) {
+    activeKey.value = 1
+  }else{
+    activeKey.value = 2
+  }
 })
 </script>
 <template>
   <div class="tabs-card">
     <a-tabs v-model:activeKey="activeKey" animated centered>
-      <a-tab-pane :key="1" :tab="props.cTab">
+      <a-tab-pane :key="1" :tab="props.cTab" v-if="showContent">
         <Card :title="props.cTitle" v-bind="$attrs">
           <slot name="content"></slot>
         </Card>
       </a-tab-pane>
-      <a-tab-pane :key="2" :tab="props.sTab">
+      <a-tab-pane :key="2" :tab="props.sTab" v-if="showStyle">
         <Card :title="props.sTitle" v-bind="$attrs">
           <slot name="style"></slot>
         </Card>
@@ -44,6 +57,9 @@ const props = withDefaults(defineProps<Props>(), {
   .ant-input {
     font-size: 12px;
     border-radius: 5px;
+  }
+  .ant-tabs-nav-wrap {
+    display: v-bind('props.isHideHeader?"none":"inline-block"') !important;
   }
 }
 </style>

@@ -1,92 +1,126 @@
 ::-webkit-scrollbar-thumb {
-    position: relative;
-    border-radius: 10px;
-    background-color: #bdbdbd;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    z-index: 999;
+  position: relative;
+  border-radius: 10px;
+  background-color: #bdbdbd;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  z-index: 999;
 }
 ::-webkit-scrollbar {
-    position: relative;
-    width: 6px;
-    height: 6px;
-    z-index: 999;
+  position: relative;
+  width: 6px;
+  height: 6px;
+  z-index: 999;
 }
-*::after,*::before,* {
-    box-sizing: border-box;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+*::after,
+*::before,
+* {
+  box-sizing: border-box;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 @for $i from 5 through 30 {
-    .mt-#{$i} {
-        margin-top: #{$i};
-    }
+  .mt-#{$i} {
+    margin-top: #{$i};
+  }
 }
 .ant-radio-button-wrapper {
-    height: 30px !important;
-    line-height: 28px !important;
-    font-size: 12px !important;
-    &:first-child {
-        border-left: 1px solid #d9d9d9 !important;
-        border-radius: 2px 0 0 2px !important;
-    }
+  height: 30px !important;
+  line-height: 28px !important;
+  font-size: 12px !important;
+  &:first-child {
+    border-left: 1px solid #d9d9d9 !important;
+    border-radius: 2px 0 0 2px !important;
+  }
 }
 .pointer-events {
-    pointer-events: none;
+  pointer-events: none;
 }
 .move {
-    position: relative;
+  position: relative;
+  cursor: move;
+  * {
+    pointer-events: none !important;
+    user-select: none !important;
+  }
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px dashed #00a0e9;
     cursor: move;
-    * {
-        pointer-events: none !important;
-        user-select: none !important;
-    }
+  }
+  &.active {
     &::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: 2px dashed #00a0e9;
-        cursor: move;
-    }
-    &.active {
-        &::after {
-            content: "";
-        }
-        .del-btn {
-            display: block;
-        }
+      content: "";
     }
     .del-btn {
-        height: 16px;
-        line-height: 16px;
-        position: absolute;
-        right: 2px;
-        bottom: 2px;
-        display: none;
-        text-align: center;
-        font-size: 12px;
-        padding: 0 5px;
-        color: #fff;
-        background: rgba(0,0,0,.4);
-        margin-left: 2px;
-        cursor: pointer;
-        pointer-events: auto !important;
-        z-index: 90;
+      display: block;
     }
+  }
+  .del-btn {
+    height: 16px;
+    line-height: 16px;
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    display: none;
+    text-align: center;
+    font-size: 12px;
+    padding: 0 5px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    margin-left: 2px;
+    cursor: pointer;
+    pointer-events: auto !important;
+    z-index: 90;
+  }
+}
+
+.editor-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(0, 0, 0, 0.65);
+  margin-bottom: 15px;
+  .label {
+    display: block;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+  .item-slider {
+    width: 100%;
+    display: flex;
+  
+    .ant-slider {
+      flex: 1;
+      margin: 10px 10px 10px 6px;
+  
+      .ant-slider-rail {
+        background: #dfdfe1;
+      }
+    }
+  }
+  .unit-text {
+    padding: 0 10px;
+    line-height: 32px;
+    font-size: 12px;
+  }
 }
 
 .link-modal {
-    .ant-modal-body {
-        padding: 0 24px 15px 24px;
-      }
-      .ant-modal-header {
-          padding-bottom: 0;
-          border-bottom: none;
-      }
-      .ant-modal-footer {
-        padding-top: 0;
-        border-top: none;
-      }
+  .ant-modal-body {
+    padding: 0 24px 15px 24px;
+  }
+  .ant-modal-header {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .ant-modal-footer {
+    padding-top: 0;
+    border-top: none;
+  }
 }

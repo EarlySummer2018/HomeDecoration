@@ -28,7 +28,9 @@ export default defineStore('template', {
                 value
             }
             this.modulesList.push(m)
-            
+            this.currentType = m.type
+            this.currentId = m.id
+            this.currentHanderObject = m 
         },
         deleteModule(key:string){
             const index = this.modulesList.findIndex((el:any)=>el.id === key)
