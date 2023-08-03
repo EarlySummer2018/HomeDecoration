@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import {PictureOutlined,SearchOutlined, BorderOutlined, MinusOutlined} from '@ant-design/icons-vue'
+import {PictureOutlined,SearchOutlined, BorderOutlined, MinusOutlined, TrademarkOutlined} from '@ant-design/icons-vue'
 import { useTemplate } from "@/store";
 import { defaultSwiperItem } from "../content/swiper/swiper";
 import deepClone from "@/utils/deepClone";
@@ -42,6 +42,17 @@ const clickCell = (type:string) => {
             lineColor: '#000000',
             bgColor: '#FFFFFF'
         }
+    } else if (type === 'fileNumber') {
+        value = {
+            content: '网站备案号：粤ICP备10000000号-1',
+            link: 'https://beian.miit.gov.cn/',
+            fontSize: 10,
+            fontColor: '#000000',
+            textAlign: 'center',
+            px: 0,
+            py: 6,
+            bgColor: '#FFFFFF'
+        }
     }
     templateStore.addModule(type, value, options)
 }
@@ -71,6 +82,10 @@ const clickCell = (type:string) => {
                     <div class="cell-item" @click="clickCell('polyline')">
                         <MinusOutlined class="icon" />
                         <span class="name">辅助线</span>
+                    </div>
+                    <div class="cell-item" @click="clickCell('fileNumber')">
+                        <TrademarkOutlined class="icon" />
+                        <span class="name">备案号</span>
                     </div>
                 </div>
             </a-collapse-panel>

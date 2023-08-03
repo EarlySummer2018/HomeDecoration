@@ -35,6 +35,11 @@ export default defineStore('template', {
         deleteModule(key:string){
             const index = this.modulesList.findIndex((el:any)=>el.id === key)
             if (~index) {
+                if (key === this.currentId) {
+                    this.currentId = ''
+                    this.currentType = ''
+                    this.currentHanderObject = null
+                }
                 this.modulesList.splice(index, 1)
             }
         },

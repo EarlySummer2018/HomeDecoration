@@ -5,6 +5,7 @@ import Search from './search/search.vue';
 import Swiper from './swiper/swiper.vue';
 import Blanks from './blanks/blanks.vue';
 import Polyline from './polyline/polyline.vue';
+import FileNumber from './fileNumber/fileNumber.vue'
 import { useTemplate } from '@/store';
 import { typeToText } from '@/utils/utils'
 const showEditor = ref<boolean>(true)
@@ -26,6 +27,7 @@ watch(
     <Swiper v-else-if="templateStore.type === 'swiper'" />
     <Blanks v-else-if="templateStore.type === 'blanks'" />
     <Polyline v-else-if="templateStore.type === 'polyline'" />
+    <FileNumber v-else-if="templateStore.type === 'fileNumber'" />
   </div>
 </template>
 

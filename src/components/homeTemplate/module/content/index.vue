@@ -6,6 +6,7 @@ import Swiper from "./swiper/swiper.vue";
 import Search from "./search/search.vue";
 import Blanks from "./blanks/blanks.vue";
 import Polyline from "./polyline/polyline.vue";
+import FileNumber from "./fileNumber/fileNumber.vue";
 import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
 const drag = ref<boolean>(false);
 const phoneContentHeaderBgColor = ref<string>("#fff");
@@ -90,6 +91,13 @@ const titleStyle = computed(() => {
           :type="element.type"
           :value="element.value"
         ></Polyline>
+        <FileNumber
+          v-else-if="element.type === 'fileNumber'"
+          :id="element.id"
+          :type="element.type"
+          :value="element.value"
+        >
+        </FileNumber>
       </template>
     </draggable>
   </section>
