@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, reactive } from "vue";
 import draggable from "vuedraggable";
 import { useTemplate, useEditor } from "@/store";
-import Swiper from "./swiper/swiper.vue";
-import Search from "./search/search.vue";
-import Blanks from "./blanks/blanks.vue";
-import Polyline from "./polyline/polyline.vue";
-import FileNumber from "./fileNumber/fileNumber.vue";
-import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
+import {
+  Swiper,
+  Search,
+  Blanks,
+  Polyline,
+  FileNumber,
+  whiteBgImg
+} from './content'
 const drag = ref<boolean>(false);
 const phoneContentHeaderBgColor = ref<string>("#fff");
 const templateStore = useTemplate();
@@ -20,15 +22,31 @@ const contentList = computed({
   },
 });
 const { headerEditor } = useEditor();
+const delStyle = reactive({
+  top: '0px',
+  left: '373px',
+  width: '34px',
+  transform: 'translate(-100%, -100%)',
+})
+const contentBox = ref<HTMLElement|null>(null)
 const changeCurrent = (e: Event) => {
-  const type = (e.target as any).dataset?.type;
-  const id = (e.target as any).dataset?.id;
+  setDelBtnStyle(e.target as HTMLElement)
+  const type = (e.target as HTMLElement).dataset?.type;
+  const id = (e.target as HTMLElement).dataset?.id;
   if (type && id) {
     templateStore.changeCurrent(id, type);
     const val = templateStore.list.filter((el: any) => el.id === id);
     templateStore.setCurrentHandlerObject(val[0]);
   }
 };
+
+const setDelBtnStyle = (el: HTMLElement) => {
+  const elRect: DOMRect = el.getBoundingClientRect() as DOMRect
+  const top:number = elRect.top
+  const contentBoxRect: DOMRect = contentBox.value?.getBoundingClientRect() as DOMRect
+  const scrollTop:number = contentBox.value?.scrollTop as number
+  delStyle.top = top - contentBoxRect.top + scrollTop + elRect.height - 2 + 'px'
+}
 
 const titleStyle = computed(() => {
   return {
@@ -38,6 +56,10 @@ const titleStyle = computed(() => {
       headerEditor.textColor === "white" ? `url(${whiteBgImg})` : "",
   };
 });
+
+onMounted(()=>{
+  contentBox.value = document.querySelector(".content-module") as HTMLElement;
+})
 </script>
 
 <template>
@@ -100,6 +122,9 @@ const titleStyle = computed(() => {
         </FileNumber>
       </template>
     </draggable>
+    <div class="del-btn1" :style="delStyle">
+      删除
+    </div>
   </section>
 </template>
 
@@ -124,6 +149,7 @@ const titleStyle = computed(() => {
 }
 
 .content-module {
+  position: relative;
   background-color: #fafafa;
   min-height: 648px;
   position: relative;
@@ -134,6 +160,19 @@ const titleStyle = computed(() => {
   box-shadow: 0 0 28px 0 #ccc;
   margin-top: 25px;
   background-color: #fff;
+  .del-btn1 {
+    height: 16px;
+    line-height: 16px;
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+    padding: 0 5px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    pointer-events: auto !important;
+    z-index: 90;
+  }
 
   .header {
     position: sticky;
