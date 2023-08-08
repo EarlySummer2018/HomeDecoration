@@ -1,4 +1,4 @@
-# 商城首页装修
+# 移动端首页装修
 
 ## 技术
 [vue 3.2.47](https://github.com/vuejs/core)
