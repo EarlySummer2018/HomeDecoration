@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SearchOutlined } from "@ant-design/icons-vue";
-const props = defineProps<{ id: string; value: any, type: string}>();
+const props = defineProps<{ id: string; value: any }>();
 import { useTemplate } from "@/store";
 const templateStore = useTemplate();
 </script>
@@ -8,8 +8,8 @@ const templateStore = useTemplate();
 <template>
   <div
     class="search move"
-    :data-type="props.type"
-    :data-id="props.id"
+    data-type="search"
+    :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === props.id }"
   >
     <div class="search-bar" :class="[props.value.style, props.value.textAlign]">

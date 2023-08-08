@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { useTemplate } from "@/store";
-defineProps<{ id: string; value: any; type: string }>();
+const props = defineProps<{ id: string; value: any }>();
 const templateStore = useTemplate();
 </script>
 <template>
   <div
     class="file-number move"
-    :data-type="type"
-    :data-id="id"
+    data-type="fileName"
+    :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === id }"
     :style="{
       backgroundColor: value.bgColor,

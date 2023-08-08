@@ -1,23 +1,23 @@
 <script lang="ts" setup>
 import { useTemplate } from "@/store";
-defineProps<{ id: string; value: any; type: string }>();
+const props = defineProps<{ id: string; value: any }>();
 const templateStore = useTemplate();
 </script>
 <template>
   <div
     class="polyline-content move"
-    :data-type="type"
-    :data-id="id"
+    data-type="polyline"
+    :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === id }"
     :style="{
-        backgroundColor: value.bgColor,
-        padding: `${value.padding}px 0px`,
-      }"
+      backgroundColor: value.bgColor,
+      padding: `${value.padding}px 0px`,
+    }"
   >
     <p
       class="line"
       :style="{
-        borderTop: `${value.height}px ${value.style} ${value.lineColor}`
+        borderTop: `${value.height}px ${value.style} ${value.lineColor}`,
       }"
     ></p>
     <div class="del-btn" @click="templateStore.deleteModule(id)">删除</div>

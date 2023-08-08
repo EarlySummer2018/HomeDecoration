@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted, reactive } from "vue";
+import { ref, computed, onMounted, reactive, watch, nextTick } from "vue";
 import draggable from "vuedraggable";
 import { useTemplate, useEditor } from "@/store";
 import {
@@ -8,8 +8,8 @@ import {
   Blanks,
   Polyline,
   FileNumber,
-  whiteBgImg
-} from './content'
+  whiteBgImg,
+} from "./content";
 const drag = ref<boolean>(false);
 const phoneContentHeaderBgColor = ref<string>("#fff");
 const templateStore = useTemplate();
@@ -23,16 +23,16 @@ const contentList = computed({
 });
 const { headerEditor } = useEditor();
 const delStyle = reactive({
-  top: '0px',
-  left: '373px',
-  width: '34px',
-  transform: 'translate(-100%, -100%)',
-})
-const contentBox = ref<HTMLElement|null>(null)
+  top: "0px",
+  left: "373px",
+  width: "34px",
+  transform: "translate(-100%, -100%)",
+});
+const contentBox = ref<HTMLElement | null>(null);
 const changeCurrent = (e: Event) => {
-  setDelBtnStyle(e.target as HTMLElement)
-  const type = (e.target as HTMLElement).dataset?.type;
-  const id = (e.target as HTMLElement).dataset?.id;
+  const target = e.target as HTMLElement;
+  const type = target.dataset.type;
+  const id = target.id.slice(3);
   if (type && id) {
     templateStore.changeCurrent(id, type);
     const val = templateStore.list.filter((el: any) => el.id === id);
@@ -41,12 +41,14 @@ const changeCurrent = (e: Event) => {
 };
 
 const setDelBtnStyle = (el: HTMLElement) => {
-  const elRect: DOMRect = el.getBoundingClientRect() as DOMRect
-  const top:number = elRect.top
-  const contentBoxRect: DOMRect = contentBox.value?.getBoundingClientRect() as DOMRect
-  const scrollTop:number = contentBox.value?.scrollTop as number
-  delStyle.top = top - contentBoxRect.top + scrollTop + elRect.height - 2 + 'px'
-}
+  const elRect: DOMRect = el.getBoundingClientRect() as DOMRect;
+  const top: number = elRect.top;
+  const contentBoxRect: DOMRect =
+    contentBox.value?.getBoundingClientRect() as DOMRect;
+  const scrollTop: number = contentBox.value?.scrollTop as number;
+  delStyle.top =
+    top - contentBoxRect.top + scrollTop + elRect.height - 2 + "px";
+};
 
 const titleStyle = computed(() => {
   return {
@@ -57,9 +59,18 @@ const titleStyle = computed(() => {
   };
 });
 
-onMounted(()=>{
+watch(
+  () => templateStore.currentId,
+  async (nVal) => {
+    await nextTick();
+    const element = document.querySelector(`#cx-${nVal}`) as HTMLElement;
+    setDelBtnStyle(element);
+  }
+);
+
+onMounted(() => {
   contentBox.value = document.querySelector(".content-module") as HTMLElement;
-})
+});
 </script>
 
 <template>
@@ -67,8 +78,8 @@ onMounted(()=>{
     <div
       class="header move"
       data-type="header"
-      data-id="header"
-      :class="{ active: templateStore.id === 'header' }"
+      id="cx-header"
+      :class="{ active: templateStore.currentId === 'header' }"
       :style="titleStyle"
     >
       {{ headerEditor.title }}
@@ -90,13 +101,11 @@ onMounted(()=>{
         <Search
           v-if="element.type === 'search'"
           :id="element.id"
-          :type="element.type"
           :value="element.value"
         ></Search>
         <swiper
           v-else-if="element.type === 'swiper'"
           :id="element.id"
-          :type="element.type"
           :swiper="element.value"
           :options="element.options"
         >
@@ -104,25 +113,26 @@ onMounted(()=>{
         <Blanks
           v-else-if="element.type === 'blanks'"
           :id="element.id"
-          :type="element.type"
           :value="element.value"
         ></Blanks>
         <Polyline
           v-else-if="element.type === 'polyline'"
           :id="element.id"
-          :type="element.type"
           :value="element.value"
         ></Polyline>
         <FileNumber
           v-else-if="element.type === 'fileNumber'"
           :id="element.id"
-          :type="element.type"
           :value="element.value"
         >
         </FileNumber>
       </template>
     </draggable>
-    <div class="del-btn1" :style="delStyle">
+    <div
+      v-if="templateStore.currentId && templateStore.currentId !== 'header'"
+      class="del-btn1"
+      :style="delStyle"
+    >
       删除
     </div>
   </section>

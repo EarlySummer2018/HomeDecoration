@@ -3,59 +3,73 @@ import { ref } from "vue";
 import { useTemplate } from "@/store";
 import errImg from "@/utils/loadErrorImg";
 import type { SwiperItem, SwiperStyle } from "@/interface/swiper";
-const props = defineProps<{ swiper: SwiperItem[]; options:any, type: string; id: string }>();
+const props = defineProps<{
+  swiper: SwiperItem[];
+  options: any;
+  id: string;
+}>();
 const templateStore = useTemplate();
 const currentSwiper = ref<number>(0);
 const swiperChange = (current: number) => {
   currentSwiper.value = current;
 };
-const swiperTitleStyle = (item:SwiperItem) => {
-  if (item.titlePosition === 'bottom') {
+const swiperTitleStyle = (item: SwiperItem) => {
+  if (item.titlePosition === "bottom") {
     return {
-      top: 'unset',
+      top: "unset",
       bottom: 0,
-      backgroundImage: `linear-gradient(to bottom, transparent, rgb(0, 0, 0))`
-    }
-  }else{
+      backgroundImage: `linear-gradient(to bottom, transparent, rgb(0, 0, 0))`,
+    };
+  } else {
     return {
       top: 0,
-      bottom: 'unset',
-      backgroundImage: `linear-gradient(to top, transparent, rgb(0, 0, 0))`
-    }
+      bottom: "unset",
+      backgroundImage: `linear-gradient(to top, transparent, rgb(0, 0, 0))`,
+    };
   }
-}
+};
 
-const setDotStyle = (swiperStyle:SwiperStyle, index:number) => {
-  const width = swiperStyle.dotShape === 'rectangular' ? `${swiperStyle.dotSize * 2}px` : `${swiperStyle.dotSize}px`;
+const setDotStyle = (index: number) => {
+  const swiperStyle: SwiperStyle = props.options;
+  const width =
+    swiperStyle.dotShape === "rectangular"
+      ? `${swiperStyle.dotSize * 2}px`
+      : `${swiperStyle.dotSize}px`;
   return {
     width,
-    height: swiperStyle.dotSize + 'px',
-    borderRadius: swiperStyle.dotShape === 'round' ? '50%': '0',
+    height: swiperStyle.dotSize + "px",
+    borderRadius: swiperStyle.dotShape === "round" ? "50%" : "0",
     backgroundColor:
       index === currentSwiper.value
         ? swiperStyle.dotBgColor
         : swiperStyle.dotDefaultBgColor,
-  }
-}
+  };
+};
 </script>
 
 <template>
   <div
     class="swiper-box move"
-    :data-type="props.type"
-    :data-id="props.id"
+    data-type="swiper"
+    :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === props.id }"
   >
     <a-carousel
-      :dots="false"
-      autoplay
-      :autoplaySpeed="props.options.speed * 1000"
       class="swiper"
+      autoplay
+      :dots="false"
+      :autoplaySpeed="props.options.speed * 1000"
       :afterChange="swiperChange"
     >
       <div class="swiper-item" v-for="item in props.swiper" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
-        <div class="swiper-title" :style="swiperTitleStyle(item)" v-if="item.title">{{ item.title }}</div>
+        <div
+          class="swiper-title"
+          :style="swiperTitleStyle(item)"
+          v-if="item.title"
+        >
+          {{ item.title }}
+        </div>
       </div>
     </a-carousel>
     <div
@@ -66,11 +80,8 @@ const setDotStyle = (swiperStyle:SwiperStyle, index:number) => {
         v-for="({ id }, index) in swiper"
         :key="id"
         class="dot-item"
-        :style="setDotStyle(props.options, index)"
+        :style="setDotStyle(index)"
       ></i>
-    </div>
-    <div class="del-btn" @click="templateStore.deleteModule(props.id)">
-      删除
     </div>
   </div>
 </template>
