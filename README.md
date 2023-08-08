@@ -133,8 +133,7 @@ $ pnpm run dev
 - 🐛：修复（fix）
 - 📝：文档（documentation）
 - 🎉：优化（refactor）
-
-- style： 格式（不影响代码运行的变动）
+- 📏： 格式（不影响代码运行的变动）
 
 
 ## 其他
