@@ -8,6 +8,7 @@ import {
   Blanks,
   Polyline,
   FileNumber,
+  WeixinOfficial,
   whiteBgImg,
 } from "./content";
 const drag = ref<boolean>(false);
@@ -60,8 +61,9 @@ const titleStyle = computed(() => {
 });
 
 watch(
-  () => templateStore.currentId,
+  () => templateStore.id,
   async (nVal) => {
+    if (!nVal) return
     await nextTick();
     const element = document.querySelector(`#cx-${nVal}`) as HTMLElement;
     setDelBtnStyle(element);
@@ -79,7 +81,7 @@ onMounted(() => {
       class="header move"
       data-type="header"
       id="cx-header"
-      :class="{ active: templateStore.currentId === 'header' }"
+      :class="{ active: templateStore.id === 'header' }"
       :style="titleStyle"
     >
       {{ headerEditor.title }}
@@ -126,14 +128,19 @@ onMounted(() => {
           :value="element.value"
         >
         </FileNumber>
+        <WeixinOfficial
+          v-else-if="element.type === 'weixinOfficial'"
+          :id="element.id"
+        />
       </template>
     </draggable>
     <div
-      v-if="templateStore.currentId && templateStore.currentId !== 'header'"
+      v-if="templateStore.id && templateStore.id !== 'header'"
       class="del-btn1"
       :style="delStyle"
+      @click="templateStore.deleteModule()"
     >
-      删除
+      删除{{ templateStore.id }}
     </div>
   </section>
 </template>

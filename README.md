@@ -124,7 +124,18 @@ $ pnpm run dev
 + ✅ 自定义容器左右边距
 + ✅ 自定义容器背景颜色
 
-☑️ 微信公众号
+✅ 微信公众号
+
+
+## 提交类型
+
+- ✨：新功能（feature）
+- 🐛：修复（fix）
+- 📝：文档（documentation）
+- 🎉：优化（refactor）
+
+- style： 格式（不影响代码运行的变动）
+
 
 ## 其他
 样式参考：[萤火商城](https://gitee.com/xany)

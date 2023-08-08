@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AAvatar: typeof import('ant-design-vue/es')['Avatar']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACarousel: typeof import('ant-design-vue/es')['Carousel']
     ACollapse: typeof import('ant-design-vue/es')['Collapse']
@@ -46,5 +47,7 @@ declare module 'vue' {
     SelectLinkModel: typeof import('./src/components/SelectLinkModel/SelectLinkModel.vue')['default']
     Swiper: typeof import('./src/components/homeTemplate/module/content/swiper/swiper.vue')['default']
     TabCard: typeof import('./src/components/tabsCard/tabCard.vue')['default']
+    WeixinOfficial: typeof import('./src/components/homeTemplate/module/content/weixinOfficial/weixinOfficial.vue')['default']
+    WexinOfficial: typeof import('./src/components/homeTemplate/module/editor/wexinOfficial/wexinOfficial.vue')['default']
   }
 }

@@ -14,7 +14,6 @@ const templateStore = useTemplate();
       height: value.height + 'px',
     }"
   >
-    <div class="del-btn" @click="templateStore.deleteModule(id)">删除</div>
   </div>
 </template>
 <style lang="scss">

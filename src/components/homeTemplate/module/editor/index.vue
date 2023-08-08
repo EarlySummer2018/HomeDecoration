@@ -1,33 +1,38 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue';
-import HeaderEdtior from './header/header.vue'
-import Search from './search/search.vue';
-import Swiper from './swiper/swiper.vue';
-import Blanks from './blanks/blanks.vue';
-import Polyline from './polyline/polyline.vue';
-import FileNumber from './fileNumber/fileNumber.vue'
-import { useTemplate } from '@/store';
-import { typeToText } from '@/utils/utils'
-const showEditor = ref<boolean>(true)
-const templateStore = useTemplate()
+import { nextTick, ref, watch } from "vue";
+import {
+  HeaderEdtior,
+  SearchEdtior,
+  SwiperEdtior,
+  BlanksEdtior,
+  PolylineEdtior,
+  FileNumberEdtior,
+  WeixinOfficialEdtior,
+} from "./editor";
+import { useTemplate } from "@/store";
+import { typeToText } from "@/utils/utils";
+const showEditor = ref<boolean>(true);
+const templateStore = useTemplate();
 watch(
-  ()=>templateStore.id,
-  async ()=>{
-    showEditor.value = false
-    await nextTick()
-    showEditor.value = true
-})
+  () => templateStore.id,
+  async () => {
+    showEditor.value = false;
+    await nextTick();
+    showEditor.value = true;
+  }
+);
 </script>
 
 <template>
   <div class="editor-index" v-if="showEditor">
-    <div class="title mt15">{{typeToText(templateStore.currentType)}}</div>
-    <Search v-if="templateStore.type === 'search'" />
+    <div class="title mt15">{{ typeToText(templateStore.currentType) }}</div>
+    <SearchEdtior v-if="templateStore.type === 'search'" />
     <HeaderEdtior v-else-if="templateStore.type === 'header'" />
-    <Swiper v-else-if="templateStore.type === 'swiper'" />
-    <Blanks v-else-if="templateStore.type === 'blanks'" />
-    <Polyline v-else-if="templateStore.type === 'polyline'" />
-    <FileNumber v-else-if="templateStore.type === 'fileNumber'" />
+    <SwiperEdtior v-else-if="templateStore.type === 'swiper'" />
+    <BlanksEdtior v-else-if="templateStore.type === 'blanks'" />
+    <PolylineEdtior v-else-if="templateStore.type === 'polyline'" />
+    <FileNumberEdtior v-else-if="templateStore.type === 'fileNumber'" />
+    <WeixinOfficialEdtior v-else-if="templateStore.type === 'weixinOfficial'" />
   </div>
 </template>
 

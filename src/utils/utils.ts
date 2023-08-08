@@ -7,8 +7,13 @@
  */
 export const typeToText = (type:string): string => {
     const obj:{[key in string]:string} = {
+        header: '页面设置',
         search: '搜索设置',
-        swiper: '轮播图设置'
+        swiper: '轮播图设置',
+        blanks: '空白辅助设置',
+        polyline: '辅助线设置',
+        fileNumber: '备案号设置',
+        weixinOfficial: '关注公众号'
     }
     if (Reflect.has(obj, type)) {
         return Reflect.get(obj, type)

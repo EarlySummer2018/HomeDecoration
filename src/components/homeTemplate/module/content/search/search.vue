@@ -16,9 +16,6 @@ const templateStore = useTemplate();
       <SearchOutlined class="icon" />
       <span>{{ props.value.placeholder }}</span>
     </div>
-    <div class="del-btn" @click="templateStore.deleteModule(props.id)">
-      删除
-    </div>
   </div>
 </template>
 

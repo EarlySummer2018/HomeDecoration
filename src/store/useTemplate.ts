@@ -35,7 +35,7 @@ export default defineStore("template", {
       const id: string = key || this.currentId;
       const index = this.modulesList.findIndex((el: any) => el.id === id);
       if (~index) {
-        if (key === this.currentId) {
+        if (id === this.currentId) {
           this.currentId = "";
           this.currentType = "";
           this.currentHanderObject = null;
