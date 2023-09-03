@@ -6,7 +6,7 @@ const templateStore = useTemplate();
 <template>
   <div
     class="file-number move"
-    data-type="fileName"
+    data-type="fileNumber"
     :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === id }"
     :style="{

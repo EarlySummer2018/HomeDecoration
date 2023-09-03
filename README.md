@@ -46,8 +46,6 @@ $ pnpm run dev
 ✅：支持，❌：暂不支持，⭕️：待完善，☑️：待开发
 <br />
 
-✅ 各个模块均使用 [hooks 操作](https://github.com/EarlySummer2018/HomeDecoration/tree/main/src/hooks)
-
 ✅ 模块可拖拽排序
 
 ✅ 模块增删改查
