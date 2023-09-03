@@ -1,3 +1,3 @@
-import Bulletin from './bulletin'
+import Bulletin from './bulletin.vue'
 
 export default Bulletin
