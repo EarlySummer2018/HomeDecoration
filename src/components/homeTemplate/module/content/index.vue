@@ -60,6 +60,14 @@ const titleStyle = computed(() => {
   };
 });
 
+const draggableEnd = () => {
+  const el:HTMLElement = document.querySelector('.move.active') as HTMLElement
+  if (el) {
+    setDelBtnStyle(el)
+  }
+  drag.value = false
+}
+
 watch(
   () => templateStore.id,
   async (nVal) => {
@@ -97,7 +105,7 @@ onMounted(() => {
         name: !drag ? 'flip-list' : null,
       }"
       @start="drag = true"
-      @end="drag = false"
+      @end="draggableEnd"
     >
       <template #item="{ element }">
         <Search
@@ -140,7 +148,7 @@ onMounted(() => {
       :style="delStyle"
       @click="templateStore.deleteModule()"
     >
-      删除{{ templateStore.id }}
+      删除
     </div>
   </section>
 </template>

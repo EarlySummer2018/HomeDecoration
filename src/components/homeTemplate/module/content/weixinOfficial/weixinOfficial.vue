@@ -9,7 +9,7 @@ const templateStore = useTemplate();
 <template>
   <div
     class="weixin-official-content move"
-    data-type="blanks"
+    data-type="weixinOfficial"
     :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === id }"
   >
