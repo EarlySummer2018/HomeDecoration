@@ -9,6 +9,8 @@ import {
   Polyline,
   FileNumber,
   WeixinOfficial,
+  CustomerService,
+  Bulletin,
   whiteBgImg,
 } from "./content";
 const drag = ref<boolean>(false);
@@ -61,17 +63,17 @@ const titleStyle = computed(() => {
 });
 
 const draggableEnd = () => {
-  const el:HTMLElement = document.querySelector('.move.active') as HTMLElement
+  const el: HTMLElement = document.querySelector(".move.active") as HTMLElement;
   if (el) {
-    setDelBtnStyle(el)
+    setDelBtnStyle(el);
   }
-  drag.value = false
-}
+  drag.value = false;
+};
 
 watch(
   () => templateStore.id,
   async (nVal) => {
-    if (!nVal) return
+    if (!nVal) return;
     await nextTick();
     const element = document.querySelector(`#cx-${nVal}`) as HTMLElement;
     setDelBtnStyle(element);
@@ -139,6 +141,16 @@ onMounted(() => {
         <WeixinOfficial
           v-else-if="element.type === 'weixinOfficial'"
           :id="element.id"
+        />
+        <CustomerService
+          v-else-if="element.type === 'customerService'"
+          :id="element.id"
+          :value="element.value"
+        />
+        <Bulletin
+          v-else-if="element.type === 'bulletin'"
+          :id="element.id"
+          :value="element.value"
         />
       </template>
     </draggable>

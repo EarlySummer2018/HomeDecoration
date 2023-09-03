@@ -5,6 +5,8 @@ import BlanksEdtior from './blanks';
 import PolylineEdtior from './polyline';
 import FileNumberEdtior from './fileNumber'
 import WeixinOfficialEdtior from './wexinOfficial'
+import CustomerService from './customerService';
+import Bulletin from './bulletin';
 
 export {
     HeaderEdtior,
@@ -13,5 +15,7 @@ export {
     BlanksEdtior,
     PolylineEdtior,
     FileNumberEdtior,
-    WeixinOfficialEdtior
+    WeixinOfficialEdtior,
+    CustomerService,
+    Bulletin
 }

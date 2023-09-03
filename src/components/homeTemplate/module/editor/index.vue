@@ -8,6 +8,8 @@ import {
   PolylineEdtior,
   FileNumberEdtior,
   WeixinOfficialEdtior,
+  CustomerService,
+  Bulletin
 } from "./editor";
 import { useTemplate } from "@/store";
 import { typeToText } from "@/utils/utils";
@@ -33,6 +35,8 @@ watch(
     <PolylineEdtior v-else-if="templateStore.type === 'polyline'" />
     <FileNumberEdtior v-else-if="templateStore.type === 'fileNumber'" />
     <WeixinOfficialEdtior v-else-if="templateStore.type === 'weixinOfficial'" />
+    <CustomerService v-else-if="templateStore.type === 'customerService'" />
+    <Bulletin v-else-if="templateStore.type === 'bulletin'" />
   </div>
 </template>
 

@@ -7,6 +7,8 @@ import {
   MinusOutlined,
   TrademarkOutlined,
   WechatOutlined,
+  CustomerServiceOutlined,
+  SoundOutlined
 } from "@ant-design/icons-vue";
 import { useTemplate } from "@/store";
 import { defaultSwiperItem } from "../content/swiper/swiper";
@@ -64,6 +66,23 @@ const clickCell = (type: string) => {
       py: 6,
       bgColor: "#FFFFFF",
     };
+  } else if (type === 'customerService') {
+    value = {
+      type: 'online',
+      bottom: 10,
+      right: 0,
+      icon: '',
+      opacity: 1
+    }
+  } else if (type === 'bulletin') {
+    value = {
+      textColor: '#1890ff',
+      bgColor: '#cae1f7',
+      margin: 0,
+      fontSize: 12,
+      content: '这是系统公告组件',
+      link: {},
+    }
   }
   templateStore.addModule(type, value, options);
 };
@@ -85,6 +104,18 @@ const clickCell = (type: string) => {
           <div class="cell-item" @click="clickCell('search')">
             <SearchOutlined class="icon" />
             <span class="name">搜索框</span>
+          </div>
+        </div>
+      </a-collapse-panel>
+      <a-collapse-panel key="other" header="商城组件">
+        <div class="cell">
+          <div class="cell-item" @click="clickCell('bulletin')">
+            <SoundOutlined class="icon" />
+            <span class="name">公告</span>
+          </div>
+          <div class="cell-item" @click="clickCell('customerService')">
+            <CustomerServiceOutlined class="icon" />
+            <span class="name">客服</span>
           </div>
         </div>
       </a-collapse-panel>
