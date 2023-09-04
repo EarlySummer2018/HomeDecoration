@@ -8,6 +8,20 @@ import CustomerService from "./customerService";
 import Bulletin from "./bulletin";
 import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
 
+export const getComponent = (type:string):any => {
+    const data = {
+        search: Search,
+        swiper: Swiper,
+        blanks: Blanks,
+        polyline: Polyline,
+        fileNumber: FileNumber,
+        weixinOfficial: WeixinOfficial,
+        customerService: CustomerService,
+        bulletin: Bulletin
+    }
+    if (!Reflect.has(data, type)) return ''
+    return Reflect.get(data, type)
+}
 export {
     // Components
     Swiper,

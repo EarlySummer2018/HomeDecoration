@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from "vue";
-import {
-  HeaderEdtior,
-  SearchEdtior,
-  SwiperEdtior,
-  BlanksEdtior,
-  PolylineEdtior,
-  FileNumberEdtior,
-  WeixinOfficialEdtior,
-  CustomerService,
-  Bulletin
-} from "./editor";
+import { getComponent } from "./editor";
 import { useTemplate } from "@/store";
 import { typeToText } from "@/utils/utils";
 const showEditor = ref<boolean>(true);
@@ -28,15 +18,7 @@ watch(
 <template>
   <div class="editor-index" v-if="showEditor">
     <div class="title mt15">{{ typeToText(templateStore.currentType) }}</div>
-    <SearchEdtior v-if="templateStore.type === 'search'" />
-    <HeaderEdtior v-else-if="templateStore.type === 'header'" />
-    <SwiperEdtior v-else-if="templateStore.type === 'swiper'" />
-    <BlanksEdtior v-else-if="templateStore.type === 'blanks'" />
-    <PolylineEdtior v-else-if="templateStore.type === 'polyline'" />
-    <FileNumberEdtior v-else-if="templateStore.type === 'fileNumber'" />
-    <WeixinOfficialEdtior v-else-if="templateStore.type === 'weixinOfficial'" />
-    <CustomerService v-else-if="templateStore.type === 'customerService'" />
-    <Bulletin v-else-if="templateStore.type === 'bulletin'" />
+    <component :is="getComponent(templateStore.type)" />
   </div>
 </template>
 

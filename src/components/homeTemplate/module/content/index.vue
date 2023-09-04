@@ -3,14 +3,8 @@ import { ref, computed, onMounted, reactive, watch, nextTick } from "vue";
 import draggable from "vuedraggable";
 import { useTemplate, useEditor } from "@/store";
 import {
-  Swiper,
-  Search,
-  Blanks,
-  Polyline,
-  FileNumber,
-  WeixinOfficial,
-  CustomerService,
-  Bulletin,
+  getComponent,
+  
   whiteBgImg,
 } from "./content";
 const drag = ref<boolean>(false);
@@ -113,47 +107,9 @@ onMounted(() => {
       @end="draggableEnd"
     >
       <template #item="{ element }">
-        <Search
-          v-if="element.type === 'search'"
-          :id="element.id"
-          :value="element.value"
-        ></Search>
-        <swiper
-          v-else-if="element.type === 'swiper'"
-          :id="element.id"
-          :swiper="element.value"
-          :options="element.options"
-        >
-        </swiper>
-        <Blanks
-          v-else-if="element.type === 'blanks'"
-          :id="element.id"
-          :value="element.value"
-        ></Blanks>
-        <Polyline
-          v-else-if="element.type === 'polyline'"
-          :id="element.id"
-          :value="element.value"
-        ></Polyline>
-        <FileNumber
-          v-else-if="element.type === 'fileNumber'"
-          :id="element.id"
-          :value="element.value"
-        >
-        </FileNumber>
-        <WeixinOfficial
-          v-else-if="element.type === 'weixinOfficial'"
-          :id="element.id"
-        />
-        <CustomerService
-          v-else-if="element.type === 'customerService'"
-          :id="element.id"
-          :value="element.value"
-        />
-        <Bulletin
-          v-else-if="element.type === 'bulletin'"
-          :id="element.id"
-          :value="element.value"
+        <component
+          :is="getComponent(element.type)"
+          v-bind="element"
         />
       </template>
     </draggable>

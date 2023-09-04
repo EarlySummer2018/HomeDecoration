@@ -2,7 +2,11 @@
 import { SearchOutlined } from "@ant-design/icons-vue";
 const props = defineProps<{ id: string; value: any }>();
 import { useTemplate } from "@/store";
+import { onMounted } from "vue";
 const templateStore = useTemplate();
+onMounted(()=>{
+  console.log(props);
+})
 </script>
 
 <template>
