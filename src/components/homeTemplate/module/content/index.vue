@@ -49,8 +49,10 @@ const setDelBtnStyle = (el: HTMLElement) => {
   const contentBoxRect: DOMRect =
     contentBox.value?.getBoundingClientRect() as DOMRect;
   const scrollTop: number = contentBox.value?.scrollTop as number;
+  
   delStyle.top =
     top - contentBoxRect.top + scrollTop + elRect.height - 2 + "px";
+  delStyle.left = elRect.left - contentBoxRect.left + elRect.width - 2 + 'px'
 };
 
 const titleStyle = computed(() => {
@@ -71,14 +73,15 @@ const draggableEnd = () => {
 };
 
 watch(
-  () => templateStore.id,
+  () => templateStore.currentHanderObject,
   async (nVal) => {
     if (!nVal) return;
     await nextTick();
-    const element = document.querySelector(`#cx-${nVal}`) as HTMLElement;
+    const element = document.querySelector(`#cx-${nVal.id}`) as HTMLElement;
     setDelBtnStyle(element);
-  }
-);
+  },
+  {deep:true}
+)
 
 onMounted(() => {
   contentBox.value = document.querySelector(".content-module") as HTMLElement;

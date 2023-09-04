@@ -8,9 +8,7 @@ const useBlancks = () => {
             return data.value
         },
         set(nVal) {
-            const obj = data
-            obj.value = nVal
-            templateStore.setCurrentHandlerObject(obj)
+            templateStore.setCurrentHandlerObject(nVal)
         }
     })
     return {

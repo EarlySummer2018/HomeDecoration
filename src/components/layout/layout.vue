@@ -20,8 +20,13 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header class="layout-header">
-        <menu-unfold-outlined v-if="collapsed" class="trigger" @click="() => (collapsed = !collapsed)" />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+        <div class="header-content">
+          <menu-unfold-outlined v-if="collapsed" class="trigger" @click="() => (collapsed = !collapsed)" />
+          <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+          <a-button type="text" @click="toGithub">
+            <github-outlined />
+          </a-button>
+        </div>
       </a-layout-header>
       <a-layout-content class="layout-content">
         <HomeTemplateIndex />
@@ -36,6 +41,7 @@ import {
   UploadOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  GithubOutlined
 } from "@ant-design/icons-vue";
 import HomeTemplateIndex from '@/components/homeTemplate/index.vue'
 import { ref, watch } from "vue";
@@ -54,6 +60,9 @@ watch(
       headerLeft.value = '80px'
     }
   })
+  const toGithub = () => {
+    window.open('https://github.com/EarlySummer2018/HomeDecoration')
+  }
 </script>
 <style lang="scss">
 #layout {
@@ -70,7 +79,11 @@ watch(
       color: #1890ff;
     }
   }
-
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .logo {
     height: 32px;
     background: rgba(255, 255, 255, 0.3);
