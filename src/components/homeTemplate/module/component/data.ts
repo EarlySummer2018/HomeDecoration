@@ -63,6 +63,9 @@ const data = {
       opacity: 1,
     },
   },
+  weixinOfficial: {
+    value: {}
+  },
   bulletin: {
     value: {
       textColor: "#1890ff",
