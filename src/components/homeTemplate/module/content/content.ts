@@ -6,6 +6,7 @@ import FileNumber from "./fileNumber";
 import WeixinOfficial from './weixinOfficial'
 import CustomerService from "./customerService";
 import Bulletin from "./bulletin";
+import News from './news'
 import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
 
 export const getComponent = (type:string):any => {
@@ -17,9 +18,12 @@ export const getComponent = (type:string):any => {
         fileNumber: FileNumber,
         weixinOfficial: WeixinOfficial,
         customerService: CustomerService,
-        bulletin: Bulletin
+        bulletin: Bulletin,
+        news: News
     }
-    if (!Reflect.has(data, type)) return ''
+    if (!Reflect.has(data, type)) {
+      return null
+    }
     return Reflect.get(data, type)
 }
 export {
@@ -32,6 +36,7 @@ export {
     WeixinOfficial,
     CustomerService,
     Bulletin,
+    News,
 
     // constants
     whiteBgImg

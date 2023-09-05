@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { PlusOutlined } from "@ant-design/icons-vue";
 import tabCard from "@/components/tabsCard/tabCard.vue";
 import useCustomerService from "@/hooks/useCustomerService";
 const { customerServiceStyle } = useCustomerService();
 </script>
 <template>
-  <div class="polyline-editor">
+  <div class="customer-servicer">
     <tabCard>
       <template #content>
         <div class="editor-cell">
@@ -19,6 +20,17 @@ const { customerServiceStyle } = useCustomerService();
         </div>
         <div class="editor-cell">
           <span class="label">客服图标</span>
+          <a-upload
+            name="swiper"
+            class="uploader"
+            :show-upload-list="false"
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          >
+            <img v-if="customerServiceStyle.src" :src="customerServiceStyle.src" alt="customerService" />
+            <div v-else>
+              <plus-outlined></plus-outlined>
+            </div>
+          </a-upload>
         </div>
       </template>
       <template #style>
@@ -71,3 +83,17 @@ const { customerServiceStyle } = useCustomerService();
     </tabCard>
   </div>
 </template>
+<style lang="scss">
+.customer-servicer {
+  .uploader {
+      width: 60px;
+      height: 60px;
+      border: 1px dashed #d9d9d9;
+      border-radius: 2px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+}
+</style>

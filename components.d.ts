@@ -44,6 +44,7 @@ declare module 'vue' {
     HomeTemplate: typeof import('./src/components/homeTemplate/index.vue')['default']
     Index2: typeof import('./src/components/homeTemplate/index2.vue')['default']
     Layout: typeof import('./src/components/layout/layout.vue')['default']
+    News: typeof import('./src/components/homeTemplate/module/content/news/news.vue')['default']
     Polyline: typeof import('./src/components/homeTemplate/module/content/polyline/polyline.vue')['default']
     Search: typeof import('./src/components/homeTemplate/module/content/search/search.vue')['default']
     SelectLinkModel: typeof import('./src/components/SelectLinkModel/SelectLinkModel.vue')['default']

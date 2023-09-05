@@ -7,6 +7,7 @@ import FileNumberEdtior from './fileNumber'
 import WeixinOfficialEdtior from './wexinOfficial'
 import CustomerService from './customerService';
 import Bulletin from './bulletin';
+import News from './news'
 
 export const getComponent = (type: string) => {
     const data = {
@@ -19,8 +20,11 @@ export const getComponent = (type: string) => {
         weixinOfficial: WeixinOfficialEdtior,
         customerService: CustomerService,
         bulletin: Bulletin,
+        news: News
     }
-    if (!Reflect.has(data, type)) return ''
+    if (!Reflect.has(data, type)) {
+      return null
+    }
     return Reflect.get(data, type)
 }
 

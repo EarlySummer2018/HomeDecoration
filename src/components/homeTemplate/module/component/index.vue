@@ -8,17 +8,23 @@ import {
   TrademarkOutlined,
   WechatOutlined,
   CustomerServiceOutlined,
-  SoundOutlined
+  SoundOutlined,
+  SendOutlined
 } from "@ant-design/icons-vue";
 import { useTemplate } from "@/store";
 import { getModelValue } from './data';
+import deepClone from "@/utils/deepClone";
 const templateStore = useTemplate();
-const activeKey = ref<string[]>(["media", "other"]);
+const activeKey = ref<string[]>(["media", "mall", "other"]);
 
 const clickCell = (type: string) => {
+  if (type === 'customerService') {
+    const data = templateStore.list.find((el:any)=>el.type === type)
+    if (data) return
+  }
   const res = getModelValue(type)
   if (!res) return
-  templateStore.addModule(type, res.value, res.options||{});
+  templateStore.addModule(type, deepClone(res.value), deepClone(res.options||{}));
 };
 </script>
 
@@ -43,6 +49,10 @@ const clickCell = (type: string) => {
       </a-collapse-panel>
       <a-collapse-panel key="mall" header="商城组件">
         <div class="cell">
+          <div class="cell-item" @click="clickCell('news')">
+            <SendOutlined class="icon" />
+            <span class="name">头条</span>
+          </div>
           <div class="cell-item" @click="clickCell('bulletin')">
             <SoundOutlined class="icon" />
             <span class="name">公告</span>

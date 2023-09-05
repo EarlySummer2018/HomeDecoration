@@ -76,9 +76,21 @@ const data = {
       link: {},
     },
   },
+  news: {
+    value: {
+      textColor: "#1890ff",
+      bgColor: "#cae1f7",
+      margin: 0,
+      fontSize: 12,
+      content: "这是头条组件",
+      link: {},
+    }
+  }
 };
 
 export const getModelValue = (key: string) => {
-    if (!Reflect.has(data, key)) return false
+    if (!Reflect.has(data, key)) {
+      return false
+    }
     return Reflect.get(data, key)
 }
