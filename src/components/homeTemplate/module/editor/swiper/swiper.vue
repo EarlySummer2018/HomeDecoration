@@ -10,7 +10,7 @@ import deepClone from "@/utils/deepClone";
 import { createSwiper } from "../../content/swiper/swiper";
 import { SwiperItem } from "@/interface/swiper";
 const templateStore = useTemplate();
-const { swiper, swiperStyle, removeSwiper } = useSwiper(templateStore);
+const { swiper, swiperStyle, titleStartColor, titleEndColor, removeSwiper } = useSwiper(templateStore);
 const drag = ref<boolean>(false);
 
 const addSwiper = () => {
@@ -137,6 +137,16 @@ const closeModal = () => {
         <div class="style">
           <p class="style-title">样式设置</p>
           <div class="cell">
+            <span class="label">自动轮播</span>
+            <a-radio-group
+              v-model:value="swiperStyle.autoPlay"
+              button-style="solid"
+            >
+              <a-radio-button :value="true">是</a-radio-button>
+              <a-radio-button :value="false">否</a-radio-button>
+            </a-radio-group>
+          </div>
+          <div class="cell">
             <span class="label">切换时间</span>
             <div class="item-slider" style="width: 190px">
               <a-slider
@@ -195,6 +205,27 @@ const closeModal = () => {
               <a-radio-button value="center">居中</a-radio-button>
               <a-radio-button value="flex-end">居右</a-radio-button>
             </a-radio-group>
+          </div>
+          <div class="cell">
+            <span class="label">标题颜色</span>
+            <input v-model="swiperStyle.titleColor" type="color" />
+          </div>
+          <div class="cell">
+            <span class="label">标题背景类型</span>
+            <a-radio-group
+              v-model:value="swiperStyle.titleBgType"
+              button-style="solid"
+            >
+              <a-radio-button :value="1">纯色</a-radio-button>
+              <a-radio-button :value="2">线性渐变</a-radio-button>
+            </a-radio-group>
+          </div>
+          <div class="cell">
+            <span class="label">标题背景色</span>
+            <div>
+              <input type="color" v-model="titleStartColor" />
+              <input style="margin-left: 10px;" v-model="titleEndColor" type="color" v-if="swiperStyle.titleBgType === 2" />
+            </div>
           </div>
         </div>
       </template>

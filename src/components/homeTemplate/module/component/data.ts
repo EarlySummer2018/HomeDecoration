@@ -16,6 +16,10 @@ const data = {
       dotSize: 10,
       autoPlay: true,
       speed: 3,
+      titleColor: '#FFFFFF',
+      titleBgType: 1,
+      titleBgColor: '#ff69b4',
+      gradientDirectional: 'bottom'
     },
   },
   search: {

@@ -4,7 +4,7 @@ import { useTemplate } from "@/store";
 import errImg from "@/utils/loadErrorImg";
 import type { SwiperItem, SwiperStyle } from "@/interface/swiper";
 const props = defineProps<{
-  swiper: SwiperItem[];
+  value: SwiperItem[];
   options: any;
   id: string;
 }>();
@@ -14,17 +14,26 @@ const swiperChange = (current: number) => {
   currentSwiper.value = current;
 };
 const swiperTitleStyle = (item: SwiperItem) => {
+  const {titleBgType, titleBgColor, titleColor} = props.options
+  let color = ''
+  if (titleBgType === 1) {
+    color = `linear-gradient(to ${item.titlePosition}, ${titleBgColor}, ${titleBgColor})`
+  }else {
+    color = `linear-gradient(to ${item.titlePosition}, ${titleBgColor[0]}, ${titleBgColor[1]})`
+  }
   if (item.titlePosition === "bottom") {
     return {
       top: "unset",
       bottom: 0,
-      backgroundImage: `linear-gradient(to bottom, transparent, rgb(0, 0, 0))`,
+      color: titleColor,
+      backgroundImage: color,
     };
   } else {
     return {
       top: 0,
+      color: titleColor,
       bottom: "unset",
-      backgroundImage: `linear-gradient(to top, transparent, rgb(0, 0, 0))`,
+      backgroundImage: color,
     };
   }
 };
@@ -61,7 +70,7 @@ const setDotStyle = (index: number) => {
       :autoplaySpeed="props.options.speed * 1000"
       :afterChange="swiperChange"
     >
-      <div class="swiper-item" v-for="item in props.swiper" :key="item.id">
+      <div class="swiper-item" v-for="item in props.value" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
         <div
           class="swiper-title"
@@ -77,7 +86,7 @@ const setDotStyle = (index: number) => {
       :style="{ justifyContent: props.options.dotPosition }"
     >
       <i
-        v-for="({ id }, index) in swiper"
+        v-for="({ id }, index) in props.value"
         :key="id"
         class="dot-item"
         :style="setDotStyle(index)"
