@@ -1,56 +1,66 @@
 <script lang="ts" setup>
 import { SendOutlined, RightOutlined } from "@ant-design/icons-vue";
 import { useTemplate } from "@/store";
-const props = defineProps<{ id: string; value: any }>();
+const props = defineProps<{ id: string; data: any }>();
 const templateStore = useTemplate();
 </script>
 <template>
-  <a-carousel dot-position="right" :autoplay="false" :dots="false">
-    <div
-      class="news move"
-      data-type="news"
-      :id="`cx-${props.id}`"
-      :class="{ active: templateStore.id === id }"
-      :style="{
-        padding: `${value.margin}px 0`,
-      }"
+  <div
+    class="news move"
+    data-type="news"
+    :id="`cx-${props.id}`"
+    :class="{ active: templateStore.id === id }"
+    :style="{
+      padding: `${data.style.margin}px 0`,
+      backgroundColor: data.style.bgColor,
+    }"
+  >
+    <a-carousel
+      class="news"
+      dot-position="right"
+      :autoplay="true"
+      :dots="false"
     >
-      <div
-        class="content"
-        :style="{
-          backgroundColor: value.bgColor,
-          color: value.textColor,
-          fontSize: `${value.fontSize}px`,
-        }"
-      >
-        <div class="content">
+      <div class="content-box" v-for="item in data.value" :key="item.id">
+        <div
+          class="content"
+          :style="{
+            color: data.style.textColor,
+            fontSize: `${data.style.fontSize}px`,
+          }"
+        >
           <SendOutlined
             :style="{
-              fontSize: value.fontSize,
+              fontSize: data.style.fontSize,
             }"
           />
-          <span class="txt">{{ value.content }}</span>
+          <span class="txt">{{ item.content }}</span>
         </div>
         <RightOutlined
           :style="{
-            fontSize: value.fontSize,
+            fontSize: data.style.fontSize,
+            color: data.style.textColor,
           }"
         />
       </div>
-    </div>
-  </a-carousel>
+    </a-carousel>
+  </div>
 </template>
 <style lang="scss" scoped>
 .news {
   width: 100%;
-  background-color: #ffffff;
 
-  .content {
+  .content-box {
     padding: 6px 10px;
     height: 32px;
-    display: flex;
+    display: inline-flex !important;
     align-items: center;
     justify-content: space-between;
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
   .txt {
     margin-left: 10px;

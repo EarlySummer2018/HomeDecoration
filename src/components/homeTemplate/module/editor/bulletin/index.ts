@@ -1,3 +1,3 @@
-import FileNumber from './bulletin.vue'
+import Bulletin from './bulletin.vue'
 
-export default FileNumber
+export default Bulletin

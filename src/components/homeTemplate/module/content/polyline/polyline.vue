@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useTemplate } from "@/store";
-const props = defineProps<{ id: string; value: any }>();
+const props = defineProps<{ id: string; data: any }>();
 const templateStore = useTemplate();
 </script>
 <template>
@@ -10,14 +10,14 @@ const templateStore = useTemplate();
     :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === id }"
     :style="{
-      backgroundColor: value.bgColor,
-      padding: `${value.padding}px 0px`,
+      backgroundColor: data.style.bgColor,
+      padding: `${data.style.padding}px 0px`,
     }"
   >
     <p
       class="line"
       :style="{
-        borderTop: `${value.height}px ${value.style} ${value.lineColor}`,
+        borderTop: `${data.style.height}px ${data.style.style} ${data.style.lineColor}`,
       }"
     ></p>
   </div>

@@ -3,10 +3,7 @@ import { defineStore } from "pinia";
 interface Module<T> {
   id: string;
   type: string;
-  options: {
-    [key in string]: string;
-  };
-  value: T;
+  data: T
 }
 export default defineStore("template", {
   state: () => ({
@@ -19,12 +16,11 @@ export default defineStore("template", {
     changeCurrent(id: string, type: string) {
       (this.currentId = id), (this.currentType = type);
     },
-    addModule<T>(type: string, value: T, options?: any) {
+    addModule<T>(type: string, data: T) {
       const m: Module<T> = {
         id: guid(),
         type,
-        options,
-        value,
+        data
       };
       this.modulesList.push(m);
       this.currentType = m.type;

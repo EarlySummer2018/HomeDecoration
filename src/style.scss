@@ -24,6 +24,11 @@
     margin-top: #{$i};
   }
 }
+@for $i from 0 through 30 {
+  .mb-#{$i} {
+    margin-bottom: #{$i};
+  }
+}
 .ant-radio-button-wrapper {
   height: 30px !important;
   line-height: 28px !important;

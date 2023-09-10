@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { SoundOutlined } from "@ant-design/icons-vue";
 import { useTemplate } from "@/store";
-const props = defineProps<{ id: string; value: any }>();
+const props = defineProps<{ id: string; data: any }>();
 const templateStore = useTemplate();
 </script>
 <template>
@@ -11,23 +11,23 @@ const templateStore = useTemplate();
     :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === id }"
     :style="{
-      padding: `${value.margin}px 0`,
+      padding: `${data.style.margin}px 0`,
     }"
   >
     <div
       class="content"
       :style="{
-        backgroundColor: value.bgColor,
-        color: value.textColor,
-        fontSize: `${value.fontSize}px`,
+        backgroundColor: data.style.bgColor,
+        color: data.style.textColor,
+        fontSize: `${data.style.fontSize}px`,
       }"
     >
       <SoundOutlined
         :style="{
-          fontSize: value.fontSize,
+          fontSize: data.style.fontSize,
         }"
       />
-      <span class="txt">{{ value.content }}</span>
+      <span class="txt">{{ data.value.content }}</span>
     </div>
   </div>
 </template>

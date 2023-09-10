@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import tabCard from "@/components/tabsCard/tabCard.vue";
 import useSearch from "@/hooks/useSearch";
-const { searchContent } = useSearch();
+const { data, style } = useSearch();
 </script>
 
 <template>
@@ -11,7 +11,7 @@ const { searchContent } = useSearch();
         <div class="cell">
           <span class="label">提示文字</span>
           <a-input
-            v-model:value="searchContent.placeholder"
+            v-model:value="data.value.placeholder"
             placeholder="请输入关键词进行搜索"
           />
         </div>
@@ -20,7 +20,7 @@ const { searchContent } = useSearch();
         <div class="cell">
           <span class="label">搜索框样式</span>
           <a-radio-group
-            v-model:value="searchContent.style"
+            v-model:value="style.style"
             button-style="solid"
           >
             <a-radio-button value="square">方形</a-radio-button>
@@ -31,7 +31,7 @@ const { searchContent } = useSearch();
         <div class="cell">
           <span class="label">文字对齐</span>
           <a-radio-group
-            v-model:value="searchContent.textAlign"
+            v-model:value="style.textAlign"
             button-style="solid"
           >
             <a-radio-button value="left">居左</a-radio-button>

@@ -1,18 +1,13 @@
 import { useTemplate } from "@/store"
-import { computed } from "vue"
+
 const useBulletin = () => {
-    const templateStore = useTemplate()
-    const data = templateStore.currentHanderObject
-    const bulletinStyle = computed({
-        get() {
-            return data.value
-        },
-        set(nVal) {
-            templateStore.setCurrentHandlerObject(nVal)
-        }
-    })
+    const { currentHanderObject } = useTemplate()
+    const { data } = currentHanderObject
+
     return {
-        bulletinStyle
+        data: data.value,
+        style: data.style,
+        options: data.options
     }
 }
 

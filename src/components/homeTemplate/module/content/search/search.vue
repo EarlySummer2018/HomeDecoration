@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { SearchOutlined } from "@ant-design/icons-vue";
-const props = defineProps<{ id: string; value: any }>();
+const props = defineProps<{ id: string; data: any }>();
 import { useTemplate } from "@/store";
 import { onMounted } from "vue";
 const templateStore = useTemplate();
+const setClass = () => {
+  const {style} = props.data
+  return [style.style, style.textAlign]
+}
 onMounted(()=>{
   console.log(props);
 })
@@ -16,9 +20,9 @@ onMounted(()=>{
     :id="`cx-${props.id}`"
     :class="{ active: templateStore.id === props.id }"
   >
-    <div class="search-bar" :class="[props.value.style, props.value.textAlign]">
+    <div class="search-bar" :class="[setClass()]">
       <SearchOutlined class="icon" />
-      <span>{{ props.value.placeholder }}</span>
+      <span>{{ props.data.value.placeholder }}</span>
     </div>
   </div>
 </template>

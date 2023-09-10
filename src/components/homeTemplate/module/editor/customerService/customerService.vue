@@ -2,7 +2,7 @@
 import { PlusOutlined } from "@ant-design/icons-vue";
 import tabCard from "@/components/tabsCard/tabCard.vue";
 import useCustomerService from "@/hooks/useCustomerService";
-const { customerServiceStyle } = useCustomerService();
+const { data, style, options } = useCustomerService();
 </script>
 <template>
   <div class="customer-servicer">
@@ -11,7 +11,7 @@ const { customerServiceStyle } = useCustomerService();
         <div class="editor-cell">
           <span class="label">功能设置</span>
           <a-radio-group
-            v-model:value="customerServiceStyle.type"
+            v-model:value="options.type"
             button-style="solid"
           >
             <a-radio-button value="online">在线客服</a-radio-button>
@@ -26,7 +26,7 @@ const { customerServiceStyle } = useCustomerService();
             :show-upload-list="false"
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
           >
-            <img v-if="customerServiceStyle.src" :src="customerServiceStyle.src" alt="customerService" />
+            <img v-if="data.icon" :src="data.icon" alt="customerService" />
             <div v-else>
               <plus-outlined></plus-outlined>
             </div>
@@ -38,13 +38,13 @@ const { customerServiceStyle } = useCustomerService();
           <span class="label">底边距</span>
           <div class="item-slider" style="width: 190px">
             <a-slider
-              v-model:value="customerServiceStyle.bottom"
+              v-model:value="style.bottom"
               :step="1"
               :min="0"
               :max="50"
             />
             <span class="unit-text">
-              <span>{{ customerServiceStyle.bottom }}</span>
+              <span>{{ style.bottom }}</span>
               <span>像素</span>
             </span>
           </div>
@@ -53,13 +53,13 @@ const { customerServiceStyle } = useCustomerService();
           <span class="label">右边距</span>
           <div class="item-slider" style="width: 190px">
             <a-slider
-              v-model:value="customerServiceStyle.right"
+              v-model:value="style.right"
               :step="1"
               :min="0"
               :max="50"
             />
             <span class="unit-text">
-              <span>{{ customerServiceStyle.right }}</span>
+              <span>{{ style.right }}</span>
               <span>像素</span>
             </span>
           </div>
@@ -68,13 +68,13 @@ const { customerServiceStyle } = useCustomerService();
           <span class="label">透明度</span>
           <div class="item-slider" style="width: 190px">
             <a-slider
-              v-model:value="customerServiceStyle.opacity"
+              v-model:value="style.opacity"
               :step="1"
               :min="0"
               :max="100"
             />
             <span class="unit-text">
-              <span>{{ customerServiceStyle.opacity }}</span>
+              <span>{{ style.opacity }}</span>
               <span>%</span>
             </span>
           </div>

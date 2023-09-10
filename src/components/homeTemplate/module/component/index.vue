@@ -13,7 +13,6 @@ import {
 } from "@ant-design/icons-vue";
 import { useTemplate } from "@/store";
 import { getModelValue } from './data';
-import deepClone from "@/utils/deepClone";
 const templateStore = useTemplate();
 const activeKey = ref<string[]>(["media", "mall", "other"]);
 
@@ -24,7 +23,7 @@ const clickCell = (type: string) => {
   }
   const res = getModelValue(type)
   if (!res) return
-  templateStore.addModule(type, deepClone(res.value), deepClone(res.options||{}));
+  templateStore.addModule(type, res);
 };
 </script>
 

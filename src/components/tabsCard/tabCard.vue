@@ -35,11 +35,13 @@ onMounted(()=>{
         <Card :title="props.cTitle" v-bind="$attrs">
           <slot name="content"></slot>
         </Card>
+        <slot name="more-content"></slot>
       </a-tab-pane>
       <a-tab-pane :key="2" :tab="props.sTab" v-if="showStyle">
         <Card :title="props.sTitle" v-bind="$attrs">
           <slot name="style"></slot>
         </Card>
+        <slot name="more-style"></slot>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -60,6 +62,10 @@ onMounted(()=>{
   }
   .ant-tabs-nav-wrap {
     display: v-bind('props.isHideHeader?"none":"inline-block"') !important;
+  }
+  .ant-tabs-content-holder {
+    max-height: 790px;
+    overflow: auto;
   }
 }
 </style>

@@ -4,21 +4,19 @@ import draggable from "vuedraggable";
 import { PlusOutlined } from "@ant-design/icons-vue";
 import tabCard from "@/components/tabsCard/tabCard.vue";
 import SelectLinkModel from "@/components/SelectLinkModel";
-import { useTemplate } from "@/store";
 import useSwiper from "@/hooks/useSwiper";
 import deepClone from "@/utils/deepClone";
 import { createSwiper } from "../../content/swiper/swiper";
 import { SwiperItem } from "@/interface/swiper";
-const templateStore = useTemplate();
-const { swiper, swiperStyle, titleStartColor, titleEndColor, removeSwiper } = useSwiper(templateStore);
+const { swiper, style, options, titleStartColor, titleEndColor, removeSwiper } = useSwiper();
 const drag = ref<boolean>(false);
 
 const addSwiper = () => {
-  swiper.value.push(deepClone(createSwiper()));
+  swiper.push(deepClone(createSwiper()));
 };
 
 const delSwiper = (id: string) => {
-  const index = swiper.value.findIndex((el: any) => el.id === id);
+  const index = swiper.findIndex((el: any) => el.id === id);
   removeSwiper(index);
 };
 
@@ -35,11 +33,10 @@ const openSelectLink = (swiper: SwiperItem) => {
   linkVisible.value = true;
   currentLinkId.value = swiper.link?.id as string;
   currentLinkForm.value = deepClone(swiper.link);
-  console.log(currentLinkId.value, swiper, 909);
 };
 
 const confirmSelectLink = (link: any) => {
-  const index = swiper.value.findIndex(
+  const index = swiper.findIndex(
     (el: SwiperItem) => el.id === currentSwiperId.value
   );
   if (~index) {
@@ -139,7 +136,7 @@ const closeModal = () => {
           <div class="cell">
             <span class="label">自动轮播</span>
             <a-radio-group
-              v-model:value="swiperStyle.autoPlay"
+              v-model:value="options.autoPlay"
               button-style="solid"
             >
               <a-radio-button :value="true">是</a-radio-button>
@@ -150,13 +147,13 @@ const closeModal = () => {
             <span class="label">切换时间</span>
             <div class="item-slider" style="width: 190px">
               <a-slider
-                v-model:value="swiperStyle.speed"
+                v-model:value="options.speed"
                 :step="1"
                 :min="1"
                 :max="20"
               />
               <span class="unit-text">
-                <span>{{ swiperStyle.speed }}</span>
+                <span>{{ options.speed }}</span>
                 <span>秒</span>
               </span>
             </div>
@@ -165,13 +162,13 @@ const closeModal = () => {
             <span class="label">指示器大小</span>
             <div class="item-slider" style="width: 190px">
               <a-slider
-                v-model:value="swiperStyle.dotSize"
+                v-model:value="style.dotSize"
                 :step="1"
                 :min="5"
                 :max="15"
               />
               <span class="unit-text">
-                <span>{{ swiperStyle.dotSize }}</span>
+                <span>{{ style.dotSize }}</span>
                 <span>像素</span>
               </span>
             </div>
@@ -179,7 +176,7 @@ const closeModal = () => {
           <div class="cell">
             <span class="label">指示器形状</span>
             <a-radio-group
-              v-model:value="swiperStyle.dotShape"
+              v-model:value="style.dotShape"
               button-style="solid"
             >
               <a-radio-button value="round">圆形</a-radio-button>
@@ -189,16 +186,16 @@ const closeModal = () => {
           </div>
           <div class="cell">
             <span class="label">指示器默认颜色</span>
-            <input v-model="swiperStyle.dotDefaultBgColor" type="color" />
+            <input v-model="style.dotDefaultBgColor" type="color" />
           </div>
           <div class="cell">
             <span class="label">指示器激活颜色</span>
-            <input v-model="swiperStyle.dotBgColor" type="color" />
+            <input v-model="style.dotBgColor" type="color" />
           </div>
           <div class="cell">
             <span class="label">指示器位置</span>
             <a-radio-group
-              v-model:value="swiperStyle.dotPosition"
+              v-model:value="options.dotPosition"
               button-style="solid"
             >
               <a-radio-button value="flex-start">居左</a-radio-button>
@@ -208,12 +205,12 @@ const closeModal = () => {
           </div>
           <div class="cell">
             <span class="label">标题颜色</span>
-            <input v-model="swiperStyle.titleColor" type="color" />
+            <input v-model="style.titleColor" type="color" />
           </div>
           <div class="cell">
             <span class="label">标题背景类型</span>
             <a-radio-group
-              v-model:value="swiperStyle.titleBgType"
+              v-model:value="options.titleBgType"
               button-style="solid"
             >
               <a-radio-button :value="1">纯色</a-radio-button>
@@ -224,7 +221,7 @@ const closeModal = () => {
             <span class="label">标题背景色</span>
             <div>
               <input type="color" v-model="titleStartColor" />
-              <input style="margin-left: 10px;" v-model="titleEndColor" type="color" v-if="swiperStyle.titleBgType === 2" />
+              <input style="margin-left: 10px;" v-model="titleEndColor" type="color" v-if="options.titleBgType === 2" />
             </div>
           </div>
         </div>

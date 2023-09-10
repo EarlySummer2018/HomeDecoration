@@ -2,10 +2,8 @@
 import { ref } from "vue";
 import { useTemplate } from "@/store";
 import errImg from "@/utils/loadErrorImg";
-import type { SwiperItem, SwiperStyle } from "@/interface/swiper";
 const props = defineProps<{
-  value: SwiperItem[];
-  options: any;
+  data: any;
   id: string;
 }>();
 const templateStore = useTemplate();
@@ -13,13 +11,14 @@ const currentSwiper = ref<number>(0);
 const swiperChange = (current: number) => {
   currentSwiper.value = current;
 };
-const swiperTitleStyle = (item: SwiperItem) => {
-  const {titleBgType, titleBgColor, titleColor} = props.options
-  let color = ''
+const swiperTitleStyle = (item: any) => {
+  const { titleBgColor, titleColor } = props.data.style;
+  const { titleBgType } = props.data.options;
+  let color = "";
   if (titleBgType === 1) {
-    color = `linear-gradient(to ${item.titlePosition}, ${titleBgColor}, ${titleBgColor})`
-  }else {
-    color = `linear-gradient(to ${item.titlePosition}, ${titleBgColor[0]}, ${titleBgColor[1]})`
+    color = `linear-gradient(to ${item.titlePosition}, ${titleBgColor}, ${titleBgColor})`;
+  } else {
+    color = `linear-gradient(to ${item.titlePosition}, ${titleBgColor[0]}, ${titleBgColor[1]})`;
   }
   if (item.titlePosition === "bottom") {
     return {
@@ -39,19 +38,15 @@ const swiperTitleStyle = (item: SwiperItem) => {
 };
 
 const setDotStyle = (index: number) => {
-  const swiperStyle: SwiperStyle = props.options;
+  const { dotShape, dotSize, dotBgColor, dotDefaultBgColor } = props.data.style;
   const width =
-    swiperStyle.dotShape === "rectangular"
-      ? `${swiperStyle.dotSize * 2}px`
-      : `${swiperStyle.dotSize}px`;
+    dotShape === "rectangular" ? `${dotSize * 2}px` : `${dotSize}px`;
   return {
     width,
-    height: swiperStyle.dotSize + "px",
-    borderRadius: swiperStyle.dotShape === "round" ? "50%" : "0",
+    height: dotSize + "px",
+    borderRadius: dotShape === "round" ? "50%" : "0",
     backgroundColor:
-      index === currentSwiper.value
-        ? swiperStyle.dotBgColor
-        : swiperStyle.dotDefaultBgColor,
+      index === currentSwiper.value ? dotBgColor : dotDefaultBgColor,
   };
 };
 </script>
@@ -67,10 +62,10 @@ const setDotStyle = (index: number) => {
       class="swiper"
       autoplay
       :dots="false"
-      :autoplaySpeed="props.options.speed * 1000"
+      :autoplaySpeed="props.data.options.speed * 1000"
       :afterChange="swiperChange"
     >
-      <div class="swiper-item" v-for="item in props.value" :key="item.id">
+      <div class="swiper-item" v-for="item in props.data.value" :key="item.id">
         <a-image class="img" :src="item.path" :fallback="errImg" />
         <div
           class="swiper-title"
@@ -83,10 +78,10 @@ const setDotStyle = (index: number) => {
     </a-carousel>
     <div
       class="swiper-dot"
-      :style="{ justifyContent: props.options.dotPosition }"
+      :style="{ justifyContent: props.data.options.dotPosition }"
     >
       <i
-        v-for="({ id }, index) in props.value"
+        v-for="({ id }, index) in props.data.value"
         :key="id"
         class="dot-item"
         :style="setDotStyle(index)"

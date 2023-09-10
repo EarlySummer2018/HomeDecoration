@@ -8,37 +8,41 @@ const data = {
       { ...deepClone(defaultSwiperItem), id: guid() },
       { ...deepClone(defaultSwiperItem), id: guid() },
     ],
-    options: {
-      dotPosition: "center",
+    style: {
       dotBgColor: "#ff69b4",
       dotDefaultBgColor: "#ffffff",
       dotShape: "round",
       dotSize: 10,
+      titleColor: '#FFFFFF',
+      titleBgColor: '#ff69b4',
+    },
+    options: {
+      dotPosition: "center",
       autoPlay: true,
       speed: 3,
-      titleColor: '#FFFFFF',
       titleBgType: 1,
-      titleBgColor: '#ff69b4',
       gradientDirectional: 'bottom'
     },
   },
   search: {
-    value: {
-      placeholder: "请输入关键词进行搜索",
+    style: {
       textAlign: "left",
       style: "square",
       containerBgColor: "#f1f1f2",
       searchBgColor: "#fff",
     },
-  },
-  blanks: {
     value: {
-      height: 10,
-      bgColor: "#FFFFFF",
+      placeholder: "请输入关键词进行搜索",
     },
   },
+  blanks: {
+    style: {
+      height: 10,
+      bgColor: "#FFFFFF",
+    }
+  },
   polyline: {
-    value: {
+    style: {
       height: 1,
       padding: 10,
       style: "solid",
@@ -50,44 +54,61 @@ const data = {
     value: {
       content: "网站备案号：粤ICP备10000000号-1",
       link: "https://beian.miit.gov.cn/",
+    },
+    style: {
       fontSize: 10,
       fontColor: "#000000",
       textAlign: "center",
       px: 0,
       py: 6,
       bgColor: "#FFFFFF",
-    },
+    }
   },
   customerService: {
     value: {
-      type: "online",
+      icon: "",
+    },
+    style: {
       bottom: 10,
       right: 0,
-      icon: "",
       opacity: 1,
     },
+    options: {
+      type: "online",
+    }
   },
   weixinOfficial: {
     value: {}
   },
   bulletin: {
     value: {
+      content: "这是系统公告组件",
+    },
+    style: {
       textColor: "#1890ff",
       bgColor: "#cae1f7",
       margin: 0,
       fontSize: 12,
-      content: "这是系统公告组件",
-      link: {},
     },
+    options: {
+      link: {},
+    }
   },
   news: {
-    value: {
+    value: [{
+      id: guid(),
+      content: '这是头条组件',
+    }],
+    style: {
       textColor: "#1890ff",
       bgColor: "#cae1f7",
       margin: 0,
       fontSize: 12,
-      content: "这是头条组件",
+    },
+    options: {
       link: {},
+      dataFrom: 1,
+      showNum: 1
     }
   }
 };
