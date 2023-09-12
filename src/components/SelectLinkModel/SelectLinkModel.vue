@@ -79,6 +79,8 @@ const handleClickItem = async (item: InsideLinks) => {
   if (item.form && item.form.length) {
     linkFormData.form = item.form;
     drawer.visible = true;
+  }else{
+    linkFormData.form = []
   }
 };
 

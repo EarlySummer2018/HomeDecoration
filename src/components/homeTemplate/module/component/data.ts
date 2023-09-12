@@ -110,6 +110,40 @@ const data = {
       dataFrom: 1,
       showNum: 1
     }
+  },
+  navigation: {
+    value: [{
+      id:guid(),
+      icon: '',
+      text: '导航1',
+      link: {}
+    },
+    {
+      id:guid(),
+      icon: '',
+      text: '导航2',
+      link: {}
+    },
+    {
+      id:guid(),
+      icon: '',
+      text: '导航3',
+      link: {}
+    },
+    {
+      id:guid(),
+      icon: '',
+      text: '导航4',
+      link: {}
+    }],
+    style: {
+      bgColor: '#FFFFFF',
+      py: 0,
+      textColor: '#000000'
+    },
+    options: {
+      colNum: 4,
+    }
   }
 };
 

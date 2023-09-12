@@ -7,6 +7,7 @@ import WeixinOfficial from './weixinOfficial'
 import CustomerService from "./customerService";
 import Bulletin from "./bulletin";
 import News from './news'
+import Navigation from './navigation'
 import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
 
 export const getComponent = (type:string):any => {
@@ -19,7 +20,8 @@ export const getComponent = (type:string):any => {
         weixinOfficial: WeixinOfficial,
         customerService: CustomerService,
         bulletin: Bulletin,
-        news: News
+        news: News,
+        navigation: Navigation
     }
     if (!Reflect.has(data, type)) {
       return null

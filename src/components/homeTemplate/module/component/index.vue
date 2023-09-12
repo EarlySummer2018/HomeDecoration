@@ -9,7 +9,8 @@ import {
   WechatOutlined,
   CustomerServiceOutlined,
   SoundOutlined,
-  SendOutlined
+  SendOutlined,
+  AppstoreAddOutlined
 } from "@ant-design/icons-vue";
 import { useTemplate } from "@/store";
 import { getModelValue } from './data';
@@ -48,6 +49,10 @@ const clickCell = (type: string) => {
       </a-collapse-panel>
       <a-collapse-panel key="mall" header="商城组件">
         <div class="cell">
+          <div class="cell-item" @click="clickCell('navigation')">
+            <AppstoreAddOutlined class="icon" />
+            <span class="name">导航</span>
+          </div>
           <div class="cell-item" @click="clickCell('news')">
             <SendOutlined class="icon" />
             <span class="name">头条</span>

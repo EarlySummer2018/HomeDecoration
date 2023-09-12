@@ -40,7 +40,7 @@ const confirmSelectLink = (link: any) => {
     (el: SwiperItem) => el.id === currentSwiperId.value
   );
   if (~index) {
-    swiper.value[index].link = link;
+    swiper[index].link = link;
   }
 };
 
