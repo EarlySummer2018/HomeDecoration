@@ -9,7 +9,10 @@ import deepClone from "@/utils/deepClone";
 import useNavigation from "@/hooks/useNavigation";
 const { data, style, options } = useNavigation();
 const drag = ref<boolean>(false)
-const delNavigation = (id: string) => {};
+const delNavigation = (id: string) => {
+  const index = data.value.findIndex((el: any) => el.id === id);
+  data.value.splice(index, 1)
+};
 const addNavigation = () => {
   data.value.push({
     id: guid(),
