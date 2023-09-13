@@ -47,7 +47,7 @@ const closeModal = () => {
 </script>
 <template>
   <div class="navigation-edtior">
-    <tabCard c-title="" s-title="" bgColor="transparent" padding="0">
+    <tabCard>
       <template #content>
         <draggable
           v-model="data.value"
@@ -117,7 +117,6 @@ const closeModal = () => {
       </template>
       <template #style>
         <div class="style">
-          <p class="style-title">样式设置</p>
           <div class="editor-cell">
             <span class="label">每行数量</span>
             <a-radio-group v-model:value="options.colNum" button-style="solid">

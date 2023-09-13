@@ -22,7 +22,7 @@ const templateStore = useTemplate();
       v-for="item in data.value"
       :key="item.id"
     >
-      <a-image class="img" :src="item.src" :fallback="errImg" />
+      <a-image class="img" :src="item.icon" :fallback="errImg" />
       <p :style="{ margin: 0 }">{{ item.text }}</p>
     </div>
   </div>

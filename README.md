@@ -50,13 +50,13 @@ $ pnpm run dev
 
 ✅ 模块增删改查
 
-✅ 搜索模块
+✅ [搜索模块](./src/components/homeTemplate/module/editor/search/README.md)
 
 + ✅ 修改搜索框 `placeholder`
 + ✅ 修改输入框圆角样式
 + ✅ 修改文字对齐方式
 
-✅ 轮播图模块
+✅ [轮播图模块](./src/components/homeTemplate/module/editor/swiper/README.md)
 
 + ✅ 每张添加标题，自动显示隐藏，有输入标题就显示，没输入标题就隐藏
 
@@ -73,6 +73,7 @@ $ pnpm run dev
 + ✅ 自定义指示器激活颜色
 + ✅ 自定义指示器位置，暂支持 `left`、`right` 和 `center` 三个位置
 + ✅ 选择每张轮播图跳转链接（[链接选择组件](/src/components/SelectLinkModel/README.md)）
++ ✅ 支持拖拽排序
 
 ☑️ 图片热区
 
@@ -84,7 +85,7 @@ $ pnpm run dev
 
 ☑️ 视频
 
-✅ 头条
+✅ [头条](./src/components/homeTemplate/module/editor/news/README.md)
 
 + ✅ 支持添加跳转链接
 + ✅ 自定义文字颜色、文字大小
@@ -93,7 +94,7 @@ $ pnpm run dev
 + ✅ 支持自定义头条来源
 + ✅ 自定义头条个数
 
-✅ 导航
+✅ [导航](./src/components/homeTemplate/module/editor/navigation/README.md)
 
 + ✅ 支持添加跳转链接
 + ✅ 支持设置每行个数，支持：`3 / 4 / 5`
@@ -101,15 +102,16 @@ $ pnpm run dev
 + ✅ 自定义背景颜色
 + ✅ 自定义文字颜色
 + ✅ 自定义上下边距
++ ✅ 支持拖拽排序
 
-✅ 公告
+✅ [公告](./src/components/homeTemplate/module/editor/bulletin/README.md)
 
 + ✅ 支持添加跳转链接
 + ✅ 自定义文字颜色、文字大小
 + ✅ 自定义背景颜色
 + ✅ 自定义上下边距
 
-✅ 客服
+✅ [客服](./src/components/homeTemplate/module/editor/customerService/README.md)
 
 + ✅ 支持 `在线客服` 和 `拨打电话` 两种模式
 + ✅ 自定义客服图标
@@ -125,12 +127,12 @@ $ pnpm run dev
 
 ☑️ 拼团商品
 
-✅ 空白填充
+✅ [空白填充](./src/components/homeTemplate/module/editor/blanks/README.md)
 
 + ✅ 自定义高度
 + ✅ 自定义颜色
 
-✅ 辅助线
+✅ [辅助线](./src/components/homeTemplate/module/editor/polyline/README.md)
 
 + ✅ 自定义线条样式，暂支持 `solid（实线）`、`dashed（虚线）` 和 `dotted（点状）`
 + ✅ 自定义线条高度
@@ -138,7 +140,7 @@ $ pnpm run dev
 + ✅ 自定义线条颜色
 + ✅ 自定义上下边距背景色
 
-✅ 备案号
+✅ [备案号](./src/components/homeTemplate/module/editor/fileNumber/README.md)
 
 + ✅ 自定义文字大小
 + ✅ 自定义对齐方式
@@ -147,7 +149,7 @@ $ pnpm run dev
 + ✅ 自定义容器左右边距
 + ✅ 自定义容器背景颜色
 
-✅ 微信公众号
+✅ [微信公众号](./src/components/homeTemplate/module/editor/wexinOfficial/README.md)
 
 
 ## 提交类型
