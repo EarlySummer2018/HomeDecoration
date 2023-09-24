@@ -17,7 +17,12 @@ export const typeToText = (type:string): string => {
         blanks: '空白辅助设置',
         polyline: '辅助线设置',
         fileNumber: '备案号设置',
-        weixinOfficial: '关注公众号'
+        weixinOfficial: '关注公众号',
+        article: '文章设置',
+        navigation: '导航设置',
+        news: '头条设置',
+        bulletin: '公告设置',
+        customerService: '客服设置',
     }
     if (Reflect.has(obj, type)) {
         return Reflect.get(obj, type)

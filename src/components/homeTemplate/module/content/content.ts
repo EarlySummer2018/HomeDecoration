@@ -8,6 +8,7 @@ import CustomerService from "./customerService";
 import Bulletin from "./bulletin";
 import News from './news'
 import Navigation from './navigation'
+import Article from "./article";
 import whiteBgImg from "@/assets/phone-top-white.b2d6121b.png";
 
 export const getComponent = (type:string):any => {
@@ -21,7 +22,8 @@ export const getComponent = (type:string):any => {
         customerService: CustomerService,
         bulletin: Bulletin,
         news: News,
-        navigation: Navigation
+        navigation: Navigation,
+        article: Article
     }
     if (!Reflect.has(data, type)) {
       return null
@@ -39,6 +41,7 @@ export {
     CustomerService,
     Bulletin,
     News,
+    Article,
 
     // constants
     whiteBgImg

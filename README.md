@@ -81,7 +81,10 @@ $ pnpm run dev
 
 ☑️ 单图
 
-☑️ 文章
+✅ [文章](./src/components/homeTemplate/module/editor/article/README.md)
+
++ ✅ 支持选择文章分类
++ ✅ 自定义文章数量（根据文章分类自动获取）
 
 ☑️ 视频
 

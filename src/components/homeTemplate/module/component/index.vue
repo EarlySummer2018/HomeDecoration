@@ -10,7 +10,8 @@ import {
   CustomerServiceOutlined,
   SoundOutlined,
   SendOutlined,
-  AppstoreAddOutlined
+  AppstoreAddOutlined,
+  FileOutlined
 } from "@ant-design/icons-vue";
 import { useTemplate } from "@/store";
 import { getModelValue } from './data';
@@ -45,6 +46,11 @@ const clickCell = (type: string) => {
             <SearchOutlined class="icon" />
             <span class="name">搜索框</span>
           </div>
+          <div class="cell-item" @click="clickCell('article')">
+            <FileOutlined class="icon" />
+            <span class="name">文章</span>
+          </div>
+          
         </div>
       </a-collapse-panel>
       <a-collapse-panel key="mall" header="商城组件">

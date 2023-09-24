@@ -144,6 +144,14 @@ const data = {
     options: {
       colNum: 4,
     }
+  },
+  article:{
+    value: [],
+    options: {
+      cate: 0,
+      num: 6
+    },
+    style: {}
   }
 };
 

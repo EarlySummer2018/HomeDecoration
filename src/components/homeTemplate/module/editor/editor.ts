@@ -9,6 +9,7 @@ import CustomerService from './customerService';
 import Bulletin from './bulletin';
 import Navigation from './navigation'
 import News from './news'
+import Article from './article'
 
 export const getComponent = (type: string) => {
     const data = {
@@ -22,7 +23,8 @@ export const getComponent = (type: string) => {
         customerService: CustomerService,
         bulletin: Bulletin,
         news: News,
-        navigation: Navigation
+        navigation: Navigation,
+        article: Article
     }
     if (!Reflect.has(data, type)) {
       return null
@@ -39,5 +41,6 @@ export {
     FileNumberEdtior,
     WeixinOfficialEdtior,
     CustomerService,
-    Bulletin
+    Bulletin,
+    Article
 }
